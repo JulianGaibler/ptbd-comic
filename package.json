@@ -1,0 +1,15 @@
+{
+  "name": "ptbd",
+  "version": "1.0.0",
+  "description": "VuePress Website for Pretends to be Drawing",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev website",
+    "build": "vuepress build website"
+  },
+  "author": "JulianWels",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.0.0-alpha.37"
+  }
+}

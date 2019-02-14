@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400');
+
+html, body
+    padding 0
+    margin 0
+    color: $ptbd-black
+    font-size 16px
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color $ptbd-white
+
+.body-wrapper
+    display flex
+    flex-direction column
+    min-height: 100vh;
+    main
+        flex 1
+
+a
+    color inherit
+    text-decoration inherit
+
+.markbox
+    min-height 2rem
+    &.bottom, &.top
+        position: relative
+        &::before
+            display block
+            content ''
+            position absolute
+            background-color $ptbd-prim
+            height 4px
+            left 1.5rem
+            right 1.5rem
+    &.bottom::before
+        bottom -2px
+    &.top::before
+        top -2px
+
+header
+    background-color $ptbd-grey
+    height 12rem
+    display flex
+    .inline
+        display flex
+        > *
+            flex: 1
+    .avatar, .avatar > img
+        height 100%
+    .logo
+        display inline-flex
+        align-items center
+        height 100%
+        a
+            height 60%
+            padding 1rem
+            margin-bottom .5rem
+            > img
+                height 100%
+    nav
+        flex 1
+        display flex
+        justify-content flex-end
+        flex-direction column
+        font-size 1.625rem
+        margin-bottom .25rem
+        text-align right
+        ul
+            margin 0
+            margin-bottom .5rem
+            margin-right 1rem
+            padding 0
+            &:last-child
+                font-weight 300
+            li
+                display inline-block
+                margin-left 1.75rem
+
+footer
+    display flex
+    align-items center
+    > div
+        flex 1
+        padding 0.4rem 2rem
+    .left
+        img
+            height 2.5rem
+            margin-top .4rem
+    .right
+        text-align right
+
+.comicpage
+    text-align center
+    .panels
+        margin 10px auto
+        display grid
+        grid-template-columns: auto auto;
+        max-width: 700px;
+        grid-gap 10px
+        img
+            width 100%
+
+
