@@ -1,8 +1,5 @@
 <template>
-    <main class="comicpage" aria-labelledby="main-title">
-        <h1></h1>
-        <p></p>
-    </main>
+    <Comic :info="info" :panels="panels" :share="share">|§|html|§|</Comic>
 </template>
 
 <script>
