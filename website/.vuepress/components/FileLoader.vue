@@ -1,6 +1,6 @@
 <template>
 	<div class="panels">
-        <img v-for="image in images" :src="image">
+        <img v-for="image in images" :src="image.src">
     </div>
 </template>
 

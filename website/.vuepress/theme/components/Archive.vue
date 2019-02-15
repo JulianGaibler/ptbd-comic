@@ -4,10 +4,14 @@
         <ul>
         	<li v-for="comic in archiveFiles">{{comic.title}} - {{comic.files}}</li>
         </ul>
+        <Content />
     </main>
 </template>
 
 <script>
+let thumbnails = require.context("../", true, /\/thumbnail\.(png|jpe?g)$/);
+thumbnails = thumbnails.keys().map(thumbnails)
+
 export default {
 	computed: {
 		archiveFiles() {
