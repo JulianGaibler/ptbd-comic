@@ -118,8 +118,17 @@ module.exports = ctx => ({
     chainWebpack: config => {
         config.module.rules.delete('images')
         config.module
-            .rule('large-images')
-                .test(/(thumbnail|panel([0-9]*))\.(png|jpe?g|gif)(\?.*)?$/)
+            .rule('panels')
+                .test(/panel([0-9]*)\.(png|jpe?g|gif)(\?.*)?$/)
+                    .use('lqip-loader')
+                        .loader('lqip-loader')
+                        .options({
+                            base64: true,
+                            palette: false
+                        });
+        config.module
+            .rule('thumbnails')
+                .test(/thumbnail\.(png|jpe?g|gif)(\?.*)?$/)
                     .use('lqip-loader')
                         .loader('lqip-loader')
                         .options({
