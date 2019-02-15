@@ -6,7 +6,8 @@ const {
 } = require('@vuepress/shared-utils')
 
 
-const template_path = './website/.vuepress/comics/Comic.vue';
+const template_path_comic = './website/.vuepress/comics/ComicWrapper.vue';
+const template_path_archive = './website/.vuepress/comics/ArchiveWrapper.vue';
 const regex_panel = /\/panel([0-9]*)\.(png|jpe?g)$/;
 const regex_share = /\/share\.(png|jpe?g)$/;
 const regex_thumbnail = /\/thumbnail\.(png|jpe?g)$/;
@@ -14,57 +15,111 @@ const regex_thumbnail = /\/thumbnail\.(png|jpe?g)$/;
 module.exports = async function (ctx) {
 	console.log("- - - - - - - -");
 
-	const template = jet.read(template_path);
 	const comicDirs = jet.find("./comics", {matching: '*', directories: true, files: false, recursive: false});
 
 	// Fetch info from comic-folders
 	let comicData = comicDirs.map(retrieveInformation);
 
 	// Inject vue-template with data
-	let injectedTemplates = comicData.map(data => injectTemplate(template, data));
+	let injectedComicTemplates = comicData.map(data => injectComicTemplate(data, ctx.markdown));
 
 	// Create VuePress Pages and add them
-	for (var i = 0; i < injectedTemplates.length; i++) {
+	// TODO: prev and next
+	for (var i = 0; i < injectedComicTemplates.length; i++) {
 		const data = comicData[i];
-		const content = injectedTemplates[i];
+		const content = injectedComicTemplates[i];
 		let options = {
             path: `/comic/${data.info.comicID}/`,
             title: data.info.title,
         };
-		await createPage(ctx, content, options, data.info.comicID);
+		await createPage(ctx, content, options, `c/${data.info.comicID}`);
 	}
 
+	let archivePages = {};
+	comicData.forEach(data => {
+		const year = data.info.date.getFullYear()
+		let archiveInfo = {
+			title: data.info.title,
+			date: data.info.date,
+			path: `/comic/${data.info.comicID}/`,
+			thumbnail: data.files.thumbnail,
+		}
+
+		if (archivePages[year]) archivePages[year].posts.push(archiveInfo);
+		else archivePages[year] = {
+			posts: [archiveInfo]
+		};
+	})
+	let recentYear = 0;
+	for (let year in archivePages) {
+		recentYear = Math.max(year, recentYear);
+		archivePages[year].year = Number.parseInt(year);
+		archivePages[year].size = archivePages[year].posts.length;
+	}
+	let years = Object.keys(archivePages);
+
+	// Inject vue-template with data
+	let injectedArchiveTemplates = years.map(i => injectArchiveTemplate(archivePages[i]));
+
+	const createArchivePage = async (index, isRoot=false) => {
+		const data = archivePages[years[i]];
+		const content = injectedArchiveTemplates[i];
+		let options = {
+            path: isRoot ? '/archive/' : `/archive/${data.year}/`,
+            title: `Archive ${data.year}`,
+        };
+		await createPage(ctx, content, options, `a/${data.year}`);
+	}
+
+	for (var i = 0; i < years.length; i++) {
+		await createArchivePage(i);
+		if (archivePages[years[i]].year === recentYear) {
+			await createArchivePage(i, true);
+		}
+	}
 
 
 	console.log("- - - - - - - -");
 }
 
 async function createPage(ctx, content, options, uid) {
-	console.log(content)
-    const file_path = await ctx.writeTemp(`temp-pages/c/${uid}.vue`, content);
-    console.log(file_path);
+    const file_path = await ctx.writeTemp(`temp-pages/${uid}.vue`, content);
     const page = new Page({...options, ...{filePath: file_path}}, ctx);
     await page.process({
       markdown: ctx.markdown,
       computed: new ctx.ClientComputedMixinConstructor(),
       enhancers: ctx.pluginAPI.options.extendPageData.items
     });
-    console.log(page.frontmatter);
     ctx.pages.push(page);
 }
 
-function injectTemplate(template, data) {
+const injectHelper = {
+	getRegExp: tag => new RegExp(`\\|\\§\\|${tag}\\|\\§\\|`, 'g'),
+	wrapRequire: str => `require("../../../../../../${str}")`,
+	toExprString: arr => `[${arr.join()}]`
+}
+
+function injectComicTemplate(data, markdown) {
+	const template = jet.read(template_path_comic);
 	let _template = template.slice();
 
-	const getRx = tag => new RegExp(`\\|\\§\\|${tag}\\|\\§\\|`, 'g');
+	_template = _template
+		.replace(injectHelper.getRegExp('panels'), injectHelper.toExprString(data.files.comics.map(injectHelper.wrapRequire)))
+		.replace(injectHelper.getRegExp('share'), injectHelper.wrapRequire(data.files.share))
+		.replace(injectHelper.getRegExp('info'), JSON.stringify(data.info))
+		.replace(injectHelper.getRegExp('html'), markdown.render(data.content).html)
 
-	const wrapRequire = str => `require("../../../../../../${str}")`;
-	const toExprString = arr => `[${arr.join()}]`;
+	return _template;
+}
+
+function injectArchiveTemplate(data) {
+	const template = jet.read(template_path_archive);
+	let _template = template.slice();
 
 	_template = _template
-		.replace(getRx('panels'), toExprString(data.files.comics.map(wrapRequire)))
-		.replace(getRx('share'), wrapRequire(data.files.share))
-		.replace(getRx('info'), JSON.stringify(data.info))
+		.replace(injectHelper.getRegExp('year'), data.year)
+		.replace(injectHelper.getRegExp('posts_size'), data.size)
+		.replace(injectHelper.getRegExp('posts'), JSON.stringify(data.posts))
 
 	return _template;
 }
