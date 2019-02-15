@@ -1,6 +1,9 @@
 <template>
 	<div>
-        {{year}}  
+        <h1>{{year}}</h1>
+        <ul>
+        	<li v-for="post in posts">{{post.title}}</li>
+        </ul>
     </div>
 </template>
 
