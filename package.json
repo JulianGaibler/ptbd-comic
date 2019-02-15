@@ -10,6 +10,8 @@
   "author": "JulianWels",
   "license": "MIT",
   "devDependencies": {
+    "fs-jetpack": "^2.2.1",
+    "lqip-loader": "^2.2.0",
     "vuepress": "^1.0.0-alpha.37"
   }
 }

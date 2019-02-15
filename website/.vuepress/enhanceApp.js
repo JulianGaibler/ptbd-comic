@@ -1,4 +1,4 @@
-import comicsMeta from '@dynamic/comics'
+//import Constants from '@dynamic/constants'
 
 export default ({
 	Vue, // the version of Vue being used in the VuePress app
@@ -6,14 +6,5 @@ export default ({
 	router, // the router instance for the app
 	siteData // site metadata
 }) => {
-
-	let x = require.context("../", true, /\/panel([0-9]*)\.(png|jpe?g)$/);
-	x.keys().forEach(x => {
-		console.log(x)
-	})
-
-	siteData.pages.forEach(page => {
-		if (!page.regularPath.startsWith("/_comics")) return;
-		console.log(page);
-	})
+	//console.log(Constants);
 }

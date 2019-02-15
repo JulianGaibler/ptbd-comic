@@ -1,9 +1,48 @@
 const path = require('path');
+
+const Page = require('@vuepress/core/lib/prepare/Page')
+const createComicPages = require('./comics/createComicPages')
+const { parseVueFrontmatter: { parse: parseVueFrontmatter } } = require('@vuepress/shared-utils')
 const container = require('markdown-it-container');
 
 const comicsDir = "_comics"
 let comics = [];
 let sortedYears = [];
+
+async function addPage(options, ctx) {
+    options.permalinkPattern = ctx.siteConfig.permalink
+    const _content = `
+<template>
+    <main class="comicpage" aria-labelledby="main-title">
+        <h1></h1>
+        <p></p>
+    </main>
+</template>
+
+<script>
+const info = {"title":"Dental Differentiation","date":"2019-02-12T12:43:00.000Z","comicID":94};
+const panels = [require("../../../../../comics/94/panel1.png"),require("../../../../../comics/94/panel2.png"),require("../../../../../comics/94/panel3.png"),require("../../../../../comics/94/panel4.png")];
+const share = require("../../../../../comics/94/share.png");
+
+export default {
+    data: function () {
+        return {
+            info, panels, share
+        }
+    },
+}
+</script>
+    `
+    const file_path = await ctx.writeTemp(`temp-pages/test.vue`, _content);
+    const page = new Page({...options, ...{filePath: file_path}}, ctx);
+    await page.process({
+      markdown: ctx.markdown,
+      computed: new ctx.ClientComputedMixinConstructor(),
+      enhancers: ctx.pluginAPI.options.extendPageData.items
+    });
+    ctx.pages.push(page);
+
+}
 
 module.exports = ctx => ({
     title: 'Pretends to be Drawing',
@@ -18,9 +57,12 @@ module.exports = ctx => ({
         page.frontmatter.type = 'comic';
         page.files = {};
         comics.push(page);
+        console.log(page);
     },
     // Get's called after that
-    ready () {
+    async ready () {
+        await createComicPages(ctx);
+        return;
         // That's why comics array is filled.
         comics.sort();
         let _comics = comics.slice();
@@ -71,13 +113,28 @@ module.exports = ctx => ({
                 year: current_year,
                 comics: sortedYears[current_year],
             }
-        });
+        })
     },
-    async clientDynamicModules () {
-        return {
-            name: 'comics.js',
-            content: `export default ${JSON.stringify(sortedYears, null, 2)}`
-        }
+    chainWebpack: config => {
+        config.module.rules.delete('images')
+        config.module
+            .rule('large-images')
+                .test(/(thumbnail|panel([0-9]*))\.(png|jpe?g|gif)(\?.*)?$/)
+                    .use('lqip-loader')
+                        .loader('lqip-loader')
+                        .options({
+                            base64: false,
+                            palette: true
+                        });
+        config.module
+            .rule('images')
+                .test(/\.(png|jpe?g|gif)(\?.*)?$/)
+                    .use('url-loader')
+                        .loader('url-loader')
+                        .options({
+                            limit: 1000,
+                            name: `assets/img/[name].[hash:8].[ext]`
+                        });
     },
     markdown: {
         extendMarkdown: md => {
