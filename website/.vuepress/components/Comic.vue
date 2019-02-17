@@ -1,19 +1,27 @@
 <template>
-	<div>
-		<div>
-			<div v-for="panel in panels" :style="{width: '5rem', height: '5rem'}">
-				<ProgressivePanel :base64="panel.preSrc" :imgsrc="panel.src" />
-			</div>
+	<div class="comicpage">
+		<h1>{{info.title}}</h1>
+		<div class="panels">
+			<ProgressivePanel v-for="panel in panels" :base64="panel.preSrc" :imgsrc="panel.src" />
 		</div>
-        <slot />   
+
+		<ComicNav 
+			:prev="$page.frontmatter.prevComic"
+			:next="$page.frontmatter.nextComic"
+			:share="share"
+		/>
+        <div class="description">
+        	<slot />
+        </div>
     </div>
 </template>
 
 <script>
 import ProgressivePanel from './Comic/ProgressivePanel.vue'
+import ComicNav from './Comic/ComicNav.vue'
 
 export default {
 	props: ['info', 'panels', 'share'],
-	components: { ProgressivePanel }
+	components: { ProgressivePanel, ComicNav }
 }
 </script>

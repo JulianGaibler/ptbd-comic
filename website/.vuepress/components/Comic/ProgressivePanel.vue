@@ -1,25 +1,45 @@
 <template>
     <figure>
-        <img :src="base64" />
-        <img />
+        <img class="preview" :src="base64" />
+        <div v-if="loadingIndicator" class="indicator"><span>Loading...</span></div>
+        <img :class="classes" :src="loadedsrc" />
         <noscript>
-            <img :src="imgsrc">
+            <img class="full" :src="imgsrc">
         </noscript>
     </figure>
 </template>
 
 <script>
-
-// filter: blur(50px);
-// var image = document.images[0];
-// var downloadingImage = new Image();
-// downloadingImage.onload = function(){
-//     image.src = this.src;   
-// };
-// downloadingImage.src = "http://an.image/to/aynchrounously/download.jpg";
+const loading_threshold = 1000;
 
 export default {
-	name: 'ProgressivePanel',
+    name: 'ProgressivePanel',
     props: ['base64', 'imgsrc'],
+    data() {
+        return {
+            loadedsrc: undefined,
+            loadingIndicator: false,
+            classes: ['full']
+        }
+    },
+    beforeMount() {
+        let downloadingImage = new Image();
+        let that = this;
+        let currTime = new Date();
+        downloadingImage.onload = function() {
+            let diff = (new Date()) - currTime;
+            if (diff > loading_threshold) {
+                that.classes.push('loaded');
+            }
+            that.loadingIndicator = false;
+            that.loadedsrc = this.src;
+        }
+
+        setTimeout(()=>{
+            if (!this.loadedsrc) this.loadingIndicator = true;
+        }, loading_threshold)
+
+        downloadingImage.src = this.imgsrc;
+    }
 }
 </script>

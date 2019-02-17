@@ -117,6 +117,7 @@ module.exports = ctx => ({
     },
     chainWebpack: config => {
         config.module.rules.delete('images')
+        config.module.rules.delete('svg')
         config.module
             .rule('panels')
                 .test(/panel([0-9]*)\.(png|jpe?g|gif)(\?.*)?$/)
@@ -144,6 +145,19 @@ module.exports = ctx => ({
                             limit: 1000,
                             name: `assets/img/[name].[hash:8].[ext]`
                         });
+        config.module
+            .rule('svg-icon')
+                .test(/icon_(.*)\.(svg)(\?.*)?$/)
+                .use('svg-inline-loader')
+                    .loader('svg-inline-loader')
+        //config.module
+        //    .rule('svg')
+        //        .test(/\.(svg)(\?.*)?$/)
+        //        .use('file-loader')
+        //            .loader('file-loader')
+        //            .options({
+        //                name: `assets/img/[name].[hash:8].[ext]`
+        //            })
     },
     markdown: {
         extendMarkdown: md => {

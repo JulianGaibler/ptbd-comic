@@ -6,7 +6,7 @@
     <main v-else><Content /></main>
     <footer class="markbox top">
         <div class="left"><img :src="$withBase('/julianwels.svg')"></div>
-        <div class="right"><a href="//jwels.berlin/info/impressum.html">Legal & Privacy</a></div>
+        <div class="right"><a target="_blank" rel="noopener noreferrer" href="//jwels.berlin/info/impressum.html">Legal & Privacy</a></div>
     </footer>
   </div>
 </template>

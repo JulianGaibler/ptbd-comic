@@ -12,6 +12,7 @@
   "devDependencies": {
     "fs-jetpack": "^2.2.1",
     "lqip-loader": "^2.2.0",
+    "svg-inline-loader": "^0.8.0",
     "vuepress": "^1.0.0-alpha.37"
   }
 }
