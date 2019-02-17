@@ -17,9 +17,20 @@ html, body
     main
         flex 1
 
+ul, figure, p
+    margin 0
+    padding 0
+
+p
+    margin 1rem
+
 a
     color inherit
     text-decoration inherit
+
+.vector
+    svg
+        height 100%
 
 .markbox
     min-height 2rem
@@ -66,10 +77,8 @@ header
         margin-bottom .25rem
         text-align right
         ul
-            margin 0
             margin-bottom .5rem
             margin-right 1rem
-            padding 0
             &:last-child
                 font-weight 300
             li
@@ -91,13 +100,96 @@ footer
 
 .comicpage
     text-align center
+    max-width 45rem
+    padding 1rem
+    margin 0 auto
+    .hidden
+        border .1rem solid $ptbd-darkgrey
+        opacity 0
+        cursor pointer
+        transition opacity .2s
+        background-color #f0f0f0
+        &:hover, &:active
+            opacity 1
     .panels
         margin 10px auto
         display grid
-        grid-template-columns: auto auto;
-        max-width: 700px;
+        grid-template-columns auto auto
         grid-gap 10px
-        img
-            width 100%
+        figure
+            overflow hidden
+            position relative
+            line-height 0
+            img
+                width 100%
+            .preview
+                filter blur(20px)
+                transform scale(1.1)
+            .indicator {
+                position absolute
+                top 0
+                left 0
+                right 0
+                bottom 0
+                display flex
+                justify-content center
+                align-items center
+            }
+            .full
+                position absolute
+                left 0
+                top 0
+                &.loaded
+                    -webkit-animation fadeIn .75s
+    .nav
+        height 2.25rem
+        display flex
+        margin 1rem 0
+        position relative
+        align-items center
+        justify-content center
+        .button
+            border-radius 1.5rem
+            background-color $ptbd-white
+            min-width 2.25rem
+            height 100%
+            z-index 1
+            border 2px solid $ptbd-prim
+            display flex
+            align-items center
+            justify-content center
+            .vector
+                height: 60%;
+            &:not(:first-child):not(:last-child)
+                margin 0 .5rem
+            &.inactive
+                border-color $ptbd-darkgrey
+                .vector svg
+                    fill $ptbd-darkgrey
+            &:not(.inactive)
+                transition background .2s .1s, box-shadow .2s .15s
+                .vector
+                    transition transform .2s
+                    svg
+                        transition fill .2s .1s
+                &:hover
+                    background-color $ptbd-prim
+                    box-shadow 0 0 0 0.3rem rgba(255, 84, 60, 0.2)
+                    cursor pointer
+                    .vector
+                        transform scale(1.2)
+                        svg
+                            fill $ptbd-white
+                
 
 
+
+@keyframes fadeIn
+  from
+    opacity 0
+    transform scale(1.1)
+    filter blur(20px)
+  to
+    opacity 1
+    transform scale(1)
+    filter blur(0)
