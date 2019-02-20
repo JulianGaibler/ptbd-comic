@@ -1,8 +1,7 @@
 <template>
     <figure class="progressive-img">
         <img class="preview" ref="preview" :src="base64" />
-        <div v-if="loadingIndicator" class="indicator"><span>Loading...</span></div>
-        <img :class="classes" :src="loadedsrc" />
+        <img ref="full" class="full willAnimate" />
         <noscript>
             <img class="full" :src="imgsrc">
         </noscript>
@@ -10,7 +9,7 @@
 </template>
 
 <script>
-const loading_threshold = 1000;
+import Vue from 'Vue'
 
 export default {
     name: 'ProgressivePanel',
@@ -22,7 +21,8 @@ export default {
             type: String,
         },
         animationThreshold: {
-            type: String,
+            type: Number,
+            default: -1
         },
         observeIntersect: {
             type: Boolean,
@@ -31,50 +31,43 @@ export default {
     },
     data() {
         return {
-            loadedsrc: undefined,
-            loadingIndicator: false,
-            classes: ['full']
-        }
-    },
-    beforeMount() {
-        if (!this.observeIntersect || !'IntersectionObserver' in window) {
-            this.download();
+
         }
     },
     mounted() {
-        if (this.observeIntersect && 'IntersectionObserver' in window) {
-            let observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    console.log(entry.isIntersecting);
-                    if (!entry.isIntersecting) return;
-                    this.download();
-                    observer.disconnect()
+        this.$nextTick(() => {
+            if (!this.observeIntersect || !'IntersectionObserver' in window) {
+                this.download();
+            } else {
+                let observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        this.download();
+                        observer.disconnect()
+                    })
+                }, {
+                    threshold: 0.1
                 })
-            }, {
-                threshold: 0.1
-            })
-            observer.observe(this.$refs.preview);
-        }
+                observer.observe(this.$refs.preview);
+            }
+        })
     },
     methods: {
         download() {
+            const imageRef = this.$refs.full;
             let downloadingImage = new Image();
-            let that = this;
+            const that = this;
             let currTime = new Date();
             downloadingImage.onload = function() {
                 let diff = (new Date()) - currTime;
-                if (diff > loading_threshold) {
-                    that.classes.push('loaded');
+                if (diff > that.animationThreshold) {
+                    imageRef.classList.add('loaded');
+                    imageRef.src = this.src;
+                } else {
+                    imageRef.src = this.src;
                 }
-                that.loadingIndicator = false;
-                that.loadedsrc = this.src;
             }
-    
-            setTimeout(()=>{
-                that.classes.push('willAnimate');
-                if (!this.loadedsrc) this.loadingIndicator = true;
-            }, loading_threshold)
-    
+
             downloadingImage.src = this.imgsrc;
         }
     }
