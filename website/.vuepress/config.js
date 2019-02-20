@@ -45,10 +45,17 @@ export default {
 }
 
 module.exports = ctx => ({
+    host: '0.0.0.0',
+    //base: '/dist/',
     title: 'Pretends to be Drawing',
     themeConfig: {
         primary: [{label: 'About', link: '/about'}, {label: 'Archive', link: '/archive'}],
         secondary: [{label: 'Twitter', link: '//twitter.com/JulianWels'}, {label: 'Facebook', link: '//facebook.com/pretendstobedrawing/'}, {label: 'Instagram', link: '//instagram.com/pretendstobedrawing/'}, {label: 'RSS', link: '/feed'}],
+    },
+    plugins: {
+        'sitemap': {
+            hostname: 'https://ptbd.jwels.berlin/'
+        },
     },
     // Get's called first
     extendPageData(page) {
@@ -120,21 +127,12 @@ module.exports = ctx => ({
         config.module.rules.delete('svg')
         config.module
             .rule('panels')
-                .test(/panel([0-9]*)\.(png|jpe?g|gif)(\?.*)?$/)
+                .test(/(panel([0-9]*)|thumbnail)\.(png|jpe?g|gif)(\?.*)?$/)
                     .use('lqip-loader')
                         .loader('lqip-loader')
                         .options({
                             base64: true,
                             palette: false
-                        });
-        config.module
-            .rule('thumbnails')
-                .test(/thumbnail\.(png|jpe?g|gif)(\?.*)?$/)
-                    .use('lqip-loader')
-                        .loader('lqip-loader')
-                        .options({
-                            base64: false,
-                            palette: true
                         });
         config.module
             .rule('images')

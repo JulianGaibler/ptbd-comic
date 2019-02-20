@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');
 
 html, body
     padding 0
@@ -27,6 +27,8 @@ p
 a
     color inherit
     text-decoration inherit
+    :hover
+        cursor pointer
 
 .vector
     svg
@@ -49,6 +51,34 @@ a
     &.top::before
         top -2px
 
+.progressive-img
+    overflow hidden
+    position relative
+    line-height 0
+    img
+        width 100%
+    .preview
+        filter blur(20px)
+        transform scale(1.1)
+    .indicator {
+        position absolute
+        top 0
+        left 0
+        right 0
+        bottom 0
+        display flex
+        justify-content center
+        align-items center
+    }
+    .full
+        position absolute
+        left 0
+        top 0
+        &.willAnimate
+            will-change transform, opacity, filter
+        &.loaded
+            -webkit-animation fadeIn .25s
+
 header
     background-color $ptbd-grey
     height 12rem
@@ -63,11 +93,23 @@ header
         height 100%
         width: 15rem;
         flex-direction column
+        .mini
+            display none
+            height 100%
+            width auto
         a
             padding 1rem
             margin-bottom .5rem
             > img
                 width 100%
+        @media (max-width: $media-med)
+            a
+                margin-bottom 0
+                .mini
+                    display initial
+                .full
+                    display none
+                
     nav
         flex 1
         display flex
@@ -83,7 +125,22 @@ header
                 font-weight 300
             li
                 display inline-block
-                margin-left 1.75rem
+                &:not(:first-child)
+                    margin-left 1.75rem
+    @media (max-width: $media-med)
+        .logo
+            position absolute
+        .avatar
+            display none
+    @media (max-width: $media-low)
+        height 7rem
+        .logo
+            width 8.5rem
+            justify-content flex-start
+        nav
+            font-size 1.25rem
+            ul li:not(:first-child)
+                margin-left 1rem
 
 footer
     display flex
@@ -98,6 +155,69 @@ footer
     .right
         text-align right
 
+.archivepage
+    max-width 45rem
+    margin 1.5rem auto
+    .desc, .year, .number
+        text-align center
+        font-size 1.25rem
+    .year
+        font-weight 700
+        line-height: .95;
+        font-size 3.5rem
+    .posts
+        margin 0 1rem
+        a
+            display block
+            &:not(:last-child)
+                margin-bottom 1rem
+            &:focus
+                outline none
+                article
+                    box-shadow 0 5px 25px rgba(0,0,0,0.1), 0 0 0 0.2rem rgba(255, 63, 47, 0.7)
+            article
+                position relative
+                display flex
+                align-items: flex-end;
+                height 9rem
+                transform-style preserve-3d
+                box-shadow 0 5px 25px rgba(0, 0, 0, 0.1)
+                border-radius .5rem
+                transform perspective(8000px)
+                .info
+                    margin .5rem
+                    border-radius .25rem
+                    overflow hidden
+                    font-size 1.2rem
+                    display flex
+                    z-index 1
+                    transform translateZ(40px)
+                    @media (max-width: $media-low)
+                        font-size 1rem
+                    > div
+                        padding .5rem .7rem
+                    :first-child
+                        background-color $ptbd-white
+                        color $ptbd-black
+                    :last-child
+                        background-color $ptbd-black
+                        color $ptbd-white
+                        
+                .background
+                    position absolute
+                    border-radius .5rem
+                    overflow hidden
+                    line-height 0
+                    top 0
+                    left 0
+                    right 0
+                    bottom 0
+                    img
+                        width 100%
+                        height 100%
+                        object-fit cover
+                
+    
 .comicpage
     text-align center
     max-width 45rem
@@ -116,73 +236,57 @@ footer
         display grid
         grid-template-columns auto auto
         grid-gap 10px
-        figure
-            overflow hidden
-            position relative
-            line-height 0
-            img
-                width 100%
-            .preview
-                filter blur(20px)
-                transform scale(1.1)
-            .indicator {
-                position absolute
-                top 0
-                left 0
-                right 0
-                bottom 0
-                display flex
-                justify-content center
-                align-items center
-            }
-            .full
-                position absolute
-                left 0
-                top 0
-                &.loaded
-                    -webkit-animation fadeIn .75s
-    .nav
-        height 2.25rem
-        display flex
-        margin 1rem 0
-        position relative
-        align-items center
-        justify-content center
-        .button
-            border-radius 1.5rem
-            background-color $ptbd-white
-            min-width 2.25rem
-            height 100%
-            z-index 1
-            border 2px solid $ptbd-prim
-            display flex
-            align-items center
-            justify-content center
-            .vector
-                height: 60%;
-            &:not(:first-child):not(:last-child)
-                margin 0 .5rem
-            &.inactive
-                border-color $ptbd-darkgrey
-                .vector svg
-                    fill $ptbd-darkgrey
-            &:not(.inactive)
-                transition background .2s .1s, box-shadow .2s .15s
-                .vector
-                    transition transform .2s
-                    svg
-                        transition fill .2s .1s
-                &:hover
-                    background-color $ptbd-prim
-                    box-shadow 0 0 0 0.3rem rgba(255, 84, 60, 0.2)
-                    cursor pointer
-                    .vector
-                        transform scale(1.2)
-                        svg
-                            fill $ptbd-white
+
+.horizonalnav
+    height 2.25rem
+    display flex
+    margin 1rem 0
+    position relative
+    align-items center
+    justify-content center
+    &.right
+        justify-content flex-end
                 
 
-
+.button
+    border-radius 1.5rem
+    background-color $ptbd-white
+    min-width 2.25rem
+    height 100%
+    z-index 1
+    border 2px solid $ptbd-prim
+    display flex
+    align-items center
+    justify-content center
+    .vector
+        height: 60%;
+    &:not(:first-child)
+        margin-left .5rem
+    &.inactive
+        border-color $ptbd-darkgrey
+        .vector svg
+            fill $ptbd-darkgrey
+    &:not(.inactive)
+        transition background .2s, box-shadow .2s
+        .vector
+            transition transform .2s
+            svg
+                transition fill .2s
+        &:focus, &:hover
+            outline none
+            box-shadow 0 0 0 0.3rem rgba(255, 84, 60, 0.2)
+        &:focus
+            border 2px solid darken($ptbd-prim, 25)
+        &:hover
+            background-color $ptbd-prim
+            cursor pointer
+            .vector
+                transform scale(1.2)
+                svg
+                    fill $ptbd-white
+            &:active
+                background-color darken($ptbd-prim, 25)
+                box-shadow 0 0 0 0.45rem rgba(255, 84, 60, 0.2)
 
 @keyframes fadeIn
   from
