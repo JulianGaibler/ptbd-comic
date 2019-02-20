@@ -3,9 +3,6 @@
         <Link :class="{'button':true, 'inactive': !prev}" :to="prev">
             <Vector :src="require('../../referenced/icon_arrow_back.svg')" />
         </Link>
-        <div class="button">
-            <Vector :src="require('../../referenced/icon_share.svg')" />
-        </div>
         <Link :class="{'button':true, 'inactive': !next}" :to="next">
             <Vector :src="require('../../referenced/icon_arrow_forward.svg')" />
         </Link>
@@ -17,8 +14,8 @@ import Link from '../../theme/components/Link'
 import Vector from '../Vector'
 
 export default {
-    name: 'ComicNav',
-    props: ['prev', 'next', 'share'],
+    name: 'ArchiveNav',
+    props: ['prev', 'next'],
     data() {
         return {
 

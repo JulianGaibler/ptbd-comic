@@ -129,10 +129,13 @@ function injectArchiveTemplate(data) {
     const template = jet.read(template_path_archive);
     let _template = template.slice();
 
+    let postData = JSON.stringify(data.posts);
+    postData = postData.replace(/"(thumbnail)":"([^,]*)"/g, 'thumbnail: require("../../../../../../$2")')
+
     _template = _template
         .replace(injectHelper.getRegExp('year'), data.year)
         .replace(injectHelper.getRegExp('posts_size'), data.size)
-        .replace(injectHelper.getRegExp('posts'), JSON.stringify(data.posts))
+        .replace(injectHelper.getRegExp('posts'), postData)
 
     return _template;
 }
