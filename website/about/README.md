@@ -1,3 +1,6 @@
+---
+description: Listen buddy, this is not about you. It's About.
+---
 # About
 
 ## License
