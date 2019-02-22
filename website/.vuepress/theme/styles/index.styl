@@ -71,10 +71,10 @@ a
         align-items center
     }
     .full
-        position absolute
-        left 0
-        top 0
-        &.willAnimate
+        &.overlay
+            position absolute
+            left 0
+            top 0
             will-change transform, opacity, filter
         &.loaded
             -webkit-animation fadeIn .25s
@@ -258,6 +258,7 @@ footer
     display flex
     align-items center
     justify-content center
+    -webkit-tap-highlight-color transparent
     .vector
         height: 60%;
     &:not(:first-child)
