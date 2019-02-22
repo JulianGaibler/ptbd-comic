@@ -1,10 +1,10 @@
 <template>
     <figure class="progressive-img">
-        <img class="preview" ref="preview" :src="base64" />
-        <img ref="full" class="full willAnimate" />
-        <noscript>
-            <img class="full" :src="imgsrc">
-        </noscript>
+        <img v-if="$ssrContext" class="full" :src="imgsrc">
+        <template v-else>
+            <img class="preview" ref="preview" :src="base64" />
+            <img ref="full" class="full overlay willAnimate" />
+        </template>
     </figure>
 </template>
 

@@ -37,9 +37,20 @@ export default {
     methods: {
         openShare() {
             if (navigator.share) {
-
+                navigator.share({
+                    title: this.comicInfo.title,
+                    url: this.comicInfo.url,
+                })
             } else {
-
+                
+            }
+        },
+    },
+    computed: {
+        comicInfo() {
+            return {
+                title: `${this.$page.title} | ${this.$site.title}`,
+                url: (this.$site.themeConfig.domain || '') + this.$page.path
             }
         }
     }
