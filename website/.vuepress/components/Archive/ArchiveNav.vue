@@ -1,9 +1,9 @@
 <template>
     <nav class="horizonalnav">
-        <Link :class="{'button':true, 'inactive': !prev}" :to="prev">
+        <Link :class="{'button':true, 'inactive': !prev}" :to="prev" aria-label="Previous Year">
             <Vector :src="require('../../referenced/icon_arrow_back.svg')" />
         </Link>
-        <Link :class="{'button':true, 'inactive': !next}" :to="next">
+        <Link :class="{'button':true, 'inactive': !next}" :to="next" aria-label="Next Year">
             <Vector :src="require('../../referenced/icon_arrow_forward.svg')" />
         </Link>
     </nav>

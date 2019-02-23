@@ -1,18 +1,17 @@
 <template>
     <nav class="horizonalnav">
-        <Link :class="{'button':true, 'inactive': !prev}" :to="prev">
+        <Link :class="{'ptbd-button':true, 'inactive': !prev}" :aria-disabled="!prev" :to="prev"  aria-label="Previous Comic">
             <Vector :src="require('../../referenced/icon_arrow_back.svg')" />
         </Link>
 
-        <Link v-if="noSharebox" class="button" :to="share" download target="_blank" rel="noopener noreferrer">
+        <Link v-if="noSharebox" class="ptbd-button" :to="share" download target="_blank" rel="noopener noreferrer" aria-label="Download as Image">
             <Vector :src="require('../../referenced/icon_share.svg')" />
         </Link>
-        <div v-else class="button" @click="openShare">
+        <div v-else class="ptbd-button" @click="openShare" role="button" aria-label="Share Dialog">
             <Vector :src="require('../../referenced/icon_share.svg')" />
         </div>
 
-
-        <Link :class="{'button':true, 'inactive': !next}" :to="next">
+        <Link :class="{'ptbd-button':true, 'inactive': !next}" :aria-disabled="!next" :to="next" aria-label="Next Comic">
             <Vector :src="require('../../referenced/icon_arrow_forward.svg')" />
         </Link>
     </nav>
