@@ -19,14 +19,13 @@ module.exports = ctx => ({
     },
     plugins: [
         require('./comics/create-comic-pages.js'),
-        (pluginOptions, context) => ({
-            name: '@vuepress/last-updated',
-            transformer: ts => new Date(ts).toISOString(),
-        }),
-        (pluginOptions, context) => ({
-            name: 'sitemap',
+        ['@vuepress/last-updated', {
+            transformer: ts => new Date(ts).toISOString()
+        }],
+        ['vuepress-plugin-sitemap', {
             hostname: 'https://ptbd.jwels.berlin/',
-        }),
+            changefreq: 'weekly'
+        }]
     ],
     // Get's called first
     extendPageData(page) {
@@ -74,6 +73,7 @@ module.exports = ctx => ({
         //            })
     },
     markdown: {
+        anchor: {permalink: false},
         extendMarkdown: md => {
             md.use(container, 'hidden', {
                 render: function(tokens, idx) {
