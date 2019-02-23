@@ -14,22 +14,26 @@
         <Link :class="{'ptbd-button':true, 'inactive': !next}" :aria-disabled="!next" :to="next" aria-label="Next Comic">
             <Vector :src="require('../../referenced/icon_arrow_forward.svg')" />
         </Link>
+
+        <Share v-if="openShareBox" :comicInfo="comicInfo" @close="toggleModal(false)" />
     </nav>
 </template>
 
 <script>
 import Link from '../../theme/components/Link'
 import Vector from '../Vector'
+import Share from './Share'
 
 export default {
     name: 'ComicNav',
     props: ['prev', 'next', 'share'],
     data() {
         return {
-            noSharebox: true
+            noSharebox: true,
+            openShareBox: false,
         }
     },
-    components: { Vector, Link },
+    components: { Vector, Link, Share },
     mounted() {
         this.noSharebox = false;
     },
@@ -41,15 +45,19 @@ export default {
                     url: this.comicInfo.url,
                 })
             } else {
-                
+                this.toggleModal(true)
             }
         },
+        toggleModal(b) {
+            this.openShareBox = b;
+        }
     },
     computed: {
         comicInfo() {
             return {
                 title: `${this.$page.title} | ${this.$site.title}`,
-                url: (this.$site.themeConfig.domain || '') + this.$page.path
+                url: (this.$site.themeConfig.domain || '') + this.$page.path,
+                share: this.share,
             }
         }
     }

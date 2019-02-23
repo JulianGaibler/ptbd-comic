@@ -21,11 +21,11 @@ module.exports = ctx => ({
         require('./comics/create-comic-pages.js'),
         (pluginOptions, context) => ({
             name: '@vuepress/last-updated',
-            hostname: 'https://ptbd.jwels.berlin/',
+            transformer: ts => new Date(ts).toISOString(),
         }),
         (pluginOptions, context) => ({
             name: 'sitemap',
-            transformer: ts => new Date(ts).toISOString(),
+            hostname: 'https://ptbd.jwels.berlin/',
         }),
     ],
     // Get's called first
