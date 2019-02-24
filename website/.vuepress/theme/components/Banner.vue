@@ -20,12 +20,8 @@
 
 <script>
 import Link from '../components/Link.vue'
+
 export default {
     components: { Link },
-    data: function () {
-        return {
-            images: [],
-        }
-    }
 }
 </script>
