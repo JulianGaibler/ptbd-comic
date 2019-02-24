@@ -8,7 +8,7 @@
             :prev="$page.frontmatter.prevYear"
             :next="$page.frontmatter.nextYear"
         />
-        <div class="posts">
+        <section class="posts">
             <router-link v-for="post in posts" :to="post.path">
                 <article ref="postbox">
                     <div class="info">
@@ -18,7 +18,7 @@
                     <ProgressivePanel class="background" :base64="post.thumbnail.preSrc" :imgsrc="post.thumbnail.src" :observeIntersect="true" />
                 </article>
             </router-link>
-        </div>
+        </section>
         <ArchiveNav 
             :prev="$page.frontmatter.prevYear"
             :next="$page.frontmatter.nextYear"

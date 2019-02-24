@@ -1,10 +1,10 @@
 <template>
     <header>
         <div class="inline">
-            <div class="avatar"><img :src="$withBase('/emily.svg')"></div>
+            <div class="avatar"><img :src="$withBase('/emily.svg')" alt="Ptbd Emily"></div>
             <div class="logo"><router-link to="/">
-                <img class="full" :src="$withBase('/ptbdlogo-full.svg')">
-                <img class="mini" :src="$withBase('/ptbdlogo-mini.svg')">
+                <img class="full" alt="Pretends to be Drawing" :src="$withBase('/ptbdlogo-full.svg')">
+                <img class="mini" alt="Pretends to be Drawing" :src="$withBase('/ptbdlogo-mini.svg')">
             </router-link></div>
         </div>
         <nav>
