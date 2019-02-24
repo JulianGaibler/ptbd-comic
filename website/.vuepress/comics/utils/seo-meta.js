@@ -3,7 +3,7 @@
  */
 
 module.exports = ($page, context, options = {}) => {
-    options = Object.assign(defaultOptions, options)
+    options = {...defaultOptions, ...options}
 
     const $site = context.siteConfig
 
