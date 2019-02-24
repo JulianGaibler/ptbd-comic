@@ -2,7 +2,7 @@
   <div class="body-wrapper">
     <Banner class="markbox bottom" />
     <main>
-        <Content />
+        What did just? How did you?
     </main>
     <Footer />
   </div>
