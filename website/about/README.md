@@ -14,7 +14,7 @@ Please note that individual panels change their filenames when their content cha
 ```
 ptbd.jwels.berlin/comic/[comicID]
 ptbd.jwels.berlin/assets/thumbnail/[comicID].[ext]
-ptbd.jwels.berlin/assets/share/[comicID].[ext]
+ptbd.jwels.berlin/share/[comicID].[ext]
 ```
 ```
 ptbd.jwels.berlin/feed

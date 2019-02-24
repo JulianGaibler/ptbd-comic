@@ -9,7 +9,6 @@ function comicTemplate(data, markdown) {
     _template = _template
         .replace(getRegExp('panels'), toExprString(data.files.comics.map(wrapRequire)))
         .replace(getRegExp('share'), wrapRequire(data.files.share))
-        .replace(getRegExp('thumbnail'), wrapRequire(data.files.thumbnail))
         .replace(getRegExp('info'), JSON.stringify(data.info))
         .replace(getRegExp('html'), data.content)
 
