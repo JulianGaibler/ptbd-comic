@@ -3,13 +3,13 @@
 html, body
     padding 0
     margin 0
-    color: $ptbd-black
     font-size 16px
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color $ptbd-white
 
 html, body, input, button, textarea
+    color $ptbd-black
     font-family: 'Roboto Condensed', sans-serif;
 
 .body-wrapper
@@ -18,6 +18,9 @@ html, body, input, button, textarea
     min-height: 100vh;
     main
         flex 1
+        > *
+            max-width 45rem
+            margin 0 auto
 
 ul, figure, p
     margin 0
@@ -133,13 +136,6 @@ header
             margin-bottom .5rem
             > img
                 width 100%
-        @media (max-width: $media-med)
-            a
-                margin-bottom 0
-                .mini
-                    display initial
-                .full
-                    display none
                 
     nav
         flex 1
@@ -161,17 +157,37 @@ header
     @media (max-width: $media-med)
         .logo
             position absolute
+            a
+                padding-left 2rem
         .avatar
             display none
     @media (max-width: $media-low)
-        height 7rem
-        .logo
-            width 8.5rem
-            justify-content flex-start
+        flex-direction column
+        height initial
+        .inline
+            justify-content center
+            a
+                height 2rem
+                padding .75rem
+                margin 0
+            .logo
+                position static
+                width auto
+                .full
+                    display none
+                .mini
+                    display initial
         nav
+            flex initial
+            text-align center
             font-size 1.25rem
-            ul li:not(:first-child)
-                margin-left 1rem
+            ul
+                margin-right 0
+                margin-bottom .25rem
+                li
+                    margin 0 .75rem
+                    &:not(:first-child)
+                        margin 0 .75rem
 
 footer
     display flex
@@ -187,8 +203,7 @@ footer
         text-align right
 
 .archivepage
-    max-width 45rem
-    margin 1.5rem auto
+    padding 1.5rem 0
     .desc, .year, .number
         text-align center
         font-size 1.25rem
@@ -248,15 +263,13 @@ footer
     
 .comicpage
     text-align center
-    max-width 45rem
     padding .5rem
-    margin 0 auto
     .hidden
         border .1rem solid $ptbd-darkgrey
         opacity 0
         cursor pointer
         transition opacity .2s
-        background-color #f0f0f0
+        background-color $ptbd-grey
         &:hover, &:active
             opacity 1
     .panels
