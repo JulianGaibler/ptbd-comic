@@ -50,7 +50,7 @@ async function createComicPages(comicData, ctx) {
             path: isRoot ? '/' : `/comic/${data.info.comicID}/`,
             title: data.info.title,
         };
-        let page = await createPage(ctx, content, options, `c/${data.info.comicID}`);
+        let page = await createPage(ctx, content, options, `c/${data.info.comicID}${isRoot ? 'r' : ''}`);
         page.frontmatter = {...page.frontmatter, ...{
             home: isRoot,
             prevComic: i===0 ? null : `/comic/${comicData[i-1].info.comicID}/`,
@@ -66,7 +66,9 @@ async function createComicPages(comicData, ctx) {
             author: () => undefined,
             tags: () => ['Webcomic', 'Comic', 'ptbd', 'Julian Wels', 'jWels'],
         })
-        else seoMeta(page, ctx)
+        else seoMeta(page, ctx, {
+            image: (_, $site) => `${$site.themeConfig.domain || ''}/assets/thumbnail/${data.info.comicID}.jpg`
+        })
     }
 
     for (var i = 0; i < injectLength; i++) {
@@ -120,7 +122,7 @@ async function createArchivePages(comicData, ctx) {
             path: isRoot ? '/archive/' : `/archive/${data.year}/`,
             title: isRoot ? 'Archive' : `Archive ${data.year}`,
         };
-        let page = await createPage(ctx, content, options, `a/${data.year}`);
+        let page = await createPage(ctx, content, options, `a/${data.year}${isRoot ? 'r' : ''}`);
         page.frontmatter = {...page.frontmatter, ...{
             prevYear: i===0 ? null : `/archive/${years[i-1]}/`,
             nextYear: i===yearsLength-1 ? null : `/archive/${years[i+1]}/`,

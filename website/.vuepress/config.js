@@ -82,7 +82,7 @@ module.exports = ctx => ({
                             name: (path) => {
                                 const arr = path.match(/(?<=\/)((\d{1,4})(?=\/))/g);
                                 const last = arr[arr.length-1];
-                                return `assets/share/${last}.[ext]`;
+                                return `share/${last}.[ext]`;
                             }
                         })
                         .end()
@@ -94,7 +94,6 @@ module.exports = ctx => ({
                             limit: 1000,
                             name: `assets/img/[name].[hash:8].[ext]`
                         })
-
 
         config.module
             .rule('svg')
