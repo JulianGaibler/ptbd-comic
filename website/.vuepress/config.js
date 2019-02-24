@@ -40,37 +40,77 @@ module.exports = ctx => ({
     chainWebpack: config => {
         config.module.rules.delete('images')
         config.module.rules.delete('svg')
+
         config.module
-            .rule('panels')
-                .test(/(panel([0-9]*)|thumbnail)\.(png|jpe?g|gif)(\?.*)?$/)
+            .rule('images')
+                .test(/\.(png|jpe?g|gif)(\?.*)?$/)
+                .oneOf('panels')
+                    .test(/\/panel([0-9]{1,})\./)
                     .use('lqip-loader')
                         .loader('lqip-loader')
                         .options({
                             base64: true,
                             palette: false
-                        });
-        config.module
-            .rule('images')
-                .test(/\.(png|jpe?g|gif)(\?.*)?$/)
+                        })
+                        .end() 
+                    .end()    
+                .oneOf('thumbnails')
+                    .test(/thumbnail\./)
+                    .use('lqip-loader')
+                        .loader('lqip-loader')
+                        .options({
+                            base64: true,
+                            palette: false
+                        })
+                        .end()
+                    .use('file-loader')
+                        .loader('file-loader')
+                        .options({
+                            name(path) {
+                                const arr = path.match(/(?<=\/)((\d{1,})(?=\/))/g);
+                                const last = arr[arr.length-1];
+                                return `assets/thumbnail/${last}.[ext]`;
+                            }
+                        })
+                        .end()
+                    .end()
+                .oneOf('share')
+                    .test(/share\./)
+                    .use('file-loader')
+                        .loader('file-loader')
+                        .options({
+                            name: (path) => {
+                                const arr = path.match(/(?<=\/)((\d{1,4})(?=\/))/g);
+                                const last = arr[arr.length-1];
+                                return `assets/share/${last}.[ext]`;
+                            }
+                        })
+                        .end()
+                    .end()
+                .oneOf('allimages')
                     .use('url-loader')
                         .loader('url-loader')
                         .options({
                             limit: 1000,
                             name: `assets/img/[name].[hash:8].[ext]`
-                        });
+                        })
+
+
         config.module
-            .rule('svg-icon')
-                .test(/icon_(.*)\.(svg)(\?.*)?$/)
-                .use('svg-inline-loader')
-                    .loader('svg-inline-loader')
-        //config.module
-        //    .rule('svg')
-        //        .test(/\.(svg)(\?.*)?$/)
-        //        .use('file-loader')
-        //            .loader('file-loader')
-        //            .options({
-        //                name: `assets/img/[name].[hash:8].[ext]`
-        //            })
+            .rule('svg')
+                .test(/\.(svg)(\?.*)?$/)
+                .oneOf('icons')
+                    .test(/icon_(.*)/)
+                    .use('svg-inline-loader')
+                        .loader('svg-inline-loader')
+                        .end()
+                    .end()
+                .oneOf('share')
+                    .use('file-loader')
+                        .loader('file-loader')
+                        .options({
+                            name: `assets/img/[name].[hash:8].[ext]`
+                        })
     },
     markdown: {
         anchor: {permalink: false},
