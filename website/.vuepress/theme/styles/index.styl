@@ -12,12 +12,25 @@ html, body, input, button, textarea
     color $ptbd-black
     font-family: 'Roboto Condensed', sans-serif;
 
+pre
+    padding .5rem .8rem
+    margin-bottom .25rem
+    display inline-block
+    background $ptbd-grey
+    overflow-x auto
+    max-width 100%
+    font-size .9rem
+    box-sizing border-box
+    border-radius .25rem
+
 .body-wrapper
     display flex
     flex-direction column
-    min-height: 100vh;
+    min-height 100vh
     main
         flex 1
+        > .content.default
+            padding 0 1.5rem
         > *
             max-width 45rem
             margin 0 auto
@@ -31,7 +44,6 @@ p
 
 a
     color inherit
-    text-decoration inherit
     :hover
         cursor pointer
 
@@ -145,6 +157,8 @@ header
         font-size 1.625rem
         margin-bottom .25rem
         text-align right
+        a
+            text-decoration inherit
         ul
             margin-bottom .5rem
             margin-right 1rem
