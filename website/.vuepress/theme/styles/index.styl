@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700')
 
 [data-theme^="light"]
     varinject($light)
@@ -10,13 +10,13 @@ html, body
     padding 0
     margin 0
     font-size 16px
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
     c background-color pd-white
 
 html, body, input, button, textarea, button
     c color pd-black
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family 'Roboto Condensed', sans-serif
     
 input, button, textarea, button
     font-size 1rem
@@ -140,11 +140,12 @@ body.active-modal
         justify-content center
         align-items center
     }
+    .full.overlay, .preview
+        position absolute
+        left 0
+        top 0
     .full
         &.overlay
-            position absolute
-            left 0
-            top 0
             will-change transform, opacity, filter
         &.loaded
             -webkit-animation fadeIn .25s
@@ -192,7 +193,7 @@ header
         display inline-flex
         justify-content center
         height 100%
-        width: 15rem;
+        width 15rem
         flex-direction column
         .mini
             display none
@@ -278,7 +279,7 @@ footer
         font-size 1.25rem
     .year
         font-weight 700
-        line-height: .95;
+        line-height .95
         font-size 3.5rem
     .posts
         margin 0 1rem
@@ -294,7 +295,7 @@ footer
             article
                 position relative
                 display flex
-                align-items: flex-end;
+                align-items flex-end
                 height 9rem
                 transform-style preserve-3d
                 box-shadow 0 5px 25px rgba(0, 0, 0, 0.1)
@@ -353,6 +354,7 @@ footer
         &:not(.legacy)
             display grid
             grid-template-columns auto auto
+            height 100%
         grid-gap .5rem
         @media (max-width: $media-low)
             grid-template-columns auto
@@ -380,7 +382,7 @@ footer
         justify-content center
         remove-native()
         .vector
-            height: 60%;
+            height 60%
         &:not(:first-child)
             margin-left .5rem
 
@@ -441,6 +443,7 @@ footer
                 background-color inherit
                 cursor pointer
                 c border-color pd-prim
+                c color pd-black
                 .icon
                     c background-color pd-prim
             &:active
@@ -491,7 +494,7 @@ footer
             c background-color pd-grey
             cursor pointer
         &:active
-            c background-color pd-darkprim
+            c background-color pd-darkgrey
             
 @keyframes fadeIn
   from
