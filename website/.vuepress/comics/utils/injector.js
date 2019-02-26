@@ -19,14 +19,24 @@ function archiveTemplate(data) {
     const template = jet.read(template_path_archive);
     let _template = template.slice();
 
-    let postData = JSON.stringify(data.posts);
-    // Can this endless path traversal be shortened?
-    postData = postData.replace(/"(path)":"([^,]*)"/g, 'thumbnail: require("../../../../../../$2")')
+    let postData = [];
+    data.posts.forEach(post => {
+        let t = post.thumbnail;
+        delete post.thumbnail;
+        let str = JSON.stringify(post)
+
+        let insert = str.length - 1;
+        let res = str.slice(0, insert) + ',thumbnail:' + wrapWithAspectRatio(t) + str.slice(insert);
+
+        post.thumbail = t;
+
+        postData.push(res)
+    })
 
     _template = _template
         .replace(getRegExp('year'), data.year)
         .replace(getRegExp('posts_size'), data.size)
-        .replace(getRegExp('posts'), postData)
+        .replace(getRegExp('posts'), toExprString(postData))
 
     return _template;
 }
@@ -42,10 +52,7 @@ function toExprString(arr) {
 }
 
 function wrapWithAspectRatio({path, hRatio}) {
-    return JSON.stringify({
-        path: wrapRequire(path),
-        hRatio
-    })
+    return `{path: ${wrapRequire(path)}, hRatio: ${hRatio}}`
 }
 
 module.exports = {comicTemplate, archiveTemplate}

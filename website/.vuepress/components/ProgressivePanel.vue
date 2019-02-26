@@ -1,8 +1,9 @@
 <template>
-    <figure class="progressive-img">
-        <img v-if="$ssrContext" class="full" :src="imgsrc">
+    <figure aria-hidden class="progressive-img">
+        <div :style="{'padding-bottom': `${img.hRatio}%`}" />
+        <img v-if="$ssrContext" class="full" :src="img.path.preSrc">
         <template v-else>
-            <img class="preview" ref="preview" :src="base64" />
+            <img class="preview" ref="preview" :src="img.path.preSrc" />
             <img ref="full" class="full overlay willAnimate" />
         </template>
     </figure>
@@ -15,11 +16,8 @@ import Vue from 'Vue'
 export default {
     name: 'ProgressivePanel',
     props: {
-        base64: {
-            type: String,
-        },
-        imgsrc: {
-            type: String,
+        img: {
+            required: true,
         },
         animationThreshold: {
             type: Number,
@@ -69,7 +67,7 @@ export default {
                 }
             }
 
-            downloadingImage.src = this.imgsrc;
+            downloadingImage.src = this.img.path.src;
         }
     }
 }

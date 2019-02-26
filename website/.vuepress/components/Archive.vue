@@ -15,7 +15,7 @@
                         <div>{{post.title}}</div>
                         <time :datetime="post.date">{{getDateStr(post.date)}}</time>
                     </div>
-                    <ProgressivePanel class="background" :base64="post.thumbnail.preSrc" :imgsrc="post.thumbnail.src" :observeIntersect="true" />
+                    <ProgressivePanel class="background" :img="post.thumbnail" :observeIntersect="true" />
                 </article>
             </router-link>
         </section>
@@ -32,6 +32,7 @@ import ArchiveNav from './Archive/ArchiveNav.vue'
 import ProgressivePanel from './ProgressivePanel.vue'
 import VanillaTilt from 'vanilla-tilt'
 import debounce from 'debounce'
+import { DateTime } from "luxon";
 
 export default {
     props: ['year', 'postsSize', 'posts'],
