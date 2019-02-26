@@ -3,7 +3,7 @@
 		<h1>{{info.title}}</h1>
 		<time :datetime="info.date">{{getDateStr(info.date)}}</time>
 		<div :class="classes">
-			<ProgressivePanel v-for="panel in panels" :base64="panel.preSrc" :imgsrc="panel.src" />
+			<ProgressivePanel v-for="panel in panels" :img="panel" />
 		</div>
 		<ComicNav 
 			:prev="$page.frontmatter.prevComic"
@@ -19,9 +19,11 @@
 <script>
 import ProgressivePanel from './ProgressivePanel.vue'
 import ComicNav from './Comic/ComicNav.vue'
+import { DateTime } from "luxon";
 
 export default {
 	props: ['info', 'panels', 'share'],
+	components: { ProgressivePanel, ComicNav },
     data: function () {
     	const cid = this.info.comicID;
     	const panelsLen = this.panels.length;
@@ -32,7 +34,6 @@ export default {
            classes: ['panels', ...info]
         }
     },
-	components: { ProgressivePanel, ComicNav }
     methods: {
     	getDateStr(date) {
             return DateTime.fromISO(date).toLocal().toFormat('dd LLL yyyy')
