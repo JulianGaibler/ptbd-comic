@@ -3,8 +3,11 @@ const Page = require('@vuepress/core/lib/prepare/Page')
 const createMarkdown = require('@vuepress/core/lib/prepare/createMarkdown')
 
 const seoMeta = require('./utils/seo-meta.js');
+const feed = require('./utils/feed.js');
 const fileFetcher = require('./utils/file-fetcher.js')
 const injector = require('./utils/injector.js')
+
+let comicData
 
 module.exports = (options, ctx) => {
     return {
@@ -23,7 +26,7 @@ module.exports = (options, ctx) => {
 
             // Fetch info from comic-folders
             console.log(`${chalk.cyan("wait")} Fetching comic files and extracting data...`);
-            let comicData = fileFetcher.fetchAll('./comics', markdown);
+            comicData = fileFetcher.fetchAll('./comics', markdown);
             console.log(`${chalk.yellow("PtbD")} Found ${comicData.length} comics: [${comicData.map(c=>c.info.comicID)}]`);
 
             // Sort comics by date
@@ -33,6 +36,10 @@ module.exports = (options, ctx) => {
 
             await createArchivePages(comicData, ctx);
 
+        },
+        async generated() {
+            if (comicData)
+                feed(comicData, ctx)
         }
     }
 }
@@ -51,7 +58,7 @@ async function createComicPages(comicData, ctx) {
             title: data.info.title,
         };
         let page = await createPage(ctx, content, options, `c/${data.info.comicID}${isRoot ? 'r' : ''}`);
-        page.frontmatter = {...page.frontmatter, ...{
+        page.frontmatter = {...page.frontmatter, ...data.info, ...{
             home: isRoot,
             prevComic: i===0 ? null : `/comic/${comicData[i-1].info.comicID}/`,
             nextComic: i===injectLength-1 ? null : `/comic/${comicData[i+1].info.comicID}/`,
