@@ -40,6 +40,11 @@ module.exports = ctx => ({
         ['vuepress-plugin-sitemap', {
             hostname: 'https://ptbd.jwels.berlin/',
             changefreq: 'weekly'
+        }],
+        ['@vuepress/pwa', {
+            serviceWorker: true,
+            popupComponent: 'SWUpdatePopup',
+            updatePopup: true
         }]
     ],
     // Get's called first
