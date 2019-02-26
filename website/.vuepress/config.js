@@ -31,6 +31,7 @@ module.exports = ctx => ({
         primary: [{label: 'About', link: '/about'}, {label: 'Archive', link: '/archive'}],
         secondary: [{label: 'Twitter', link: '//twitter.com/JulianWels'}, {label: 'Facebook', link: '//facebook.com/pretendstobedrawing/'}, {label: 'Instagram', link: '//instagram.com/pretendstobedrawing/'}, {label: 'RSS', link: '/feed'}],
     },
+    clientRootMixin: path.resolve(__dirname, 'clientRootMixin.js'),
     plugins: [
         require('./comics/create-comic-pages.js'),
         ['@vuepress/last-updated', {
