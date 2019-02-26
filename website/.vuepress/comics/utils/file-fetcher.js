@@ -1,5 +1,6 @@
 const jet = require('fs-jetpack')
 const spawn = require('cross-spawn')
+const imgSizeOf = require('image-size');
 const HTMLParser = require('node-html-parser');
 const { parseFrontmatter} = require('@vuepress/shared-utils')
 
@@ -40,11 +41,21 @@ function seperateFiles(files) {
     let thumbnail = null;
     let share = null;
     files.forEach(file => {
-        if (regex_panel.test(file)) comics.push(file);
+        if (regex_panel.test(file)) comics.push(withHorizontalAspectRatio(file));
         else if (regex_share.test(file)) share = file;
-        else if (regex_thumbnail.test(file)) thumbnail = file;
+        else if (regex_thumbnail.test(file)) thumbnail = withHorizontalAspectRatio(file);
     })
     return {comics,thumbnail,share}
+}
+
+function withHorizontalAspectRatio(path) {
+    let {width, height} = imgSizeOf(path);
+    let percent = height/width*100;
+    let rounded = Math.round(percent * 100) / 100;
+    return {
+        path,
+        hRatio: rounded,
+    }
 }
 
 function getGitLastUpdatedTimeStamp(filePath) {
