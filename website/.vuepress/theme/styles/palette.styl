@@ -1,25 +1,46 @@
 $ptbd-prim = #ff543c
-$ptbd-grey = #f0f0f0
-$ptbd-darkgrey = #e6e6e6
 $ptbd-white = #ffffff
 $ptbd-black = #231f20
 
-//$ptbd-prim = #ff543c
-//$ptbd-grey = #292828
-//$ptbd-darkgrey = #464646
-//$ptbd-white = #0f0f0f
-//$ptbd-black = #ffffff
+$light = {
+    pd-prim: $ptbd-prim
+    pd-darkprim: darken(#ff543c, 25)
+    pd-grey: #f0f0f0
+    pd-darkgrey: #e6e6e6
+    pd-white: $ptbd-white
+    pd-black: $ptbd-black
+}
+
+$dark = {
+    pd-prim: $ptbd-prim
+    pd-darkprim: darken(#ff543c, 25)
+    pd-grey: #292828
+    pd-darkgrey: #464646
+    pd-white: #0f0f0f
+    pd-black: #dddddf
+}
 
 $media-med = 850px
 $media-low = 500px
 
 remove-native()
-	-webkit-tap-highlight-color transparent
-	outline none
-	user-select none
-	
+    -webkit-tap-highlight-color transparent
+    outline none
+    user-select none
+    
 left-right-top-bottom(n)
-	left n
-	right n
-	top n
-	bottom n
+    left n
+    right n
+    top n
+    bottom n
+    
+c(n, varname, args...)
+    var = $light[varname]
+    {n} args var;
+    {n} args 'var(--%s, %s)' % (varname var);
+    
+varinject($obj)
+    $ddash = \-+\-
+    for val in $obj
+        $key = $ddash+val
+        {$key} $obj[val]

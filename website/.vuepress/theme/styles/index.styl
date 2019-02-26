@@ -1,27 +1,79 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');
 
+[data-theme^="light"]
+    varinject($light)
+    
+[data-theme^="dark"]
+    varinject($dark)
+
 html, body
     padding 0
     margin 0
     font-size 16px
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color $ptbd-white
+    c background-color pd-white
 
-html, body, input, button, textarea
-    color $ptbd-black
+html, body, input, button, textarea, button
+    c color pd-black
     font-family: 'Roboto Condensed', sans-serif;
+    
+input, button, textarea, button
+    font-size 1rem
+
+.err404
+    text-align center
+
+.page-update
+    position fixed
+    text-align center
+    left-right-top-bottom 0
+    top initial
+    c background pd-white
+    padding 1.5rem
+    box-shadow 0 0 25px rgba(0,0,0,0.1)
+    p
+        margin 0 0 1rem 0
+    button
+        border-radius 50rem
+        padding .3rem .75rem
+        
+
+#nprogress
+    position fixed
+    left-right-top-bottom 0
+    bottom initial
+    height .1rem
+    .bar
+        height 100%
+        c background pd-prim
 
 pre
     padding .5rem .8rem
     margin-bottom .25rem
     display inline-block
-    background $ptbd-grey
+    c background pd-grey
     overflow-x auto
     max-width 100%
     font-size .9rem
     box-sizing border-box
     border-radius .25rem
+    
+h3
+    margin .75rem 0
+
+.settings
+    margin 0 .75rem
+    padding .75rem .9rem
+    c background pd-grey
+    border-radius .25rem
+    display inline-block
+    label
+        display block
+        &:not(:last-child)
+            margin-bottom .25rem
+        span
+            margin-left .25rem
 
 .body-wrapper
     display flex
@@ -30,17 +82,18 @@ pre
     main
         flex 1
         > .content.default
-            padding 0 1.5rem
+            padding 0 1.5rem 1rem 1.5rem
         > *
             max-width 45rem
             margin 0 auto
+            padding-bottom 1rem
 
 ul, figure, p
     margin 0
     padding 0
 
 p
-    margin 1rem
+    margin .75rem
 
 a
     color inherit
@@ -62,7 +115,7 @@ body.active-modal
             display block
             content ''
             position absolute
-            background-color $ptbd-prim
+            c background-color pd-prim
             height 4px
             left 1.5rem
             right 1.5rem
@@ -97,14 +150,15 @@ body.active-modal
             -webkit-animation fadeIn .25s
 
 .ptbd-button
-    background-color $ptbd-white
-    border 2px solid $ptbd-prim
+    c background-color pd-white
+    c border pd-prim 2px solid
+    remove-native()
     &.inactive
-        border-color $ptbd-darkgrey
+        c border-color pd-darkgrey
         .vector svg
-            fill $ptbd-darkgrey
+            c fill pd-darkgrey
     &:not(.inactive)
-        transition background .2s, box-shadow .2s
+        transition background .2s, box-shadow .2s, color .2s
         .vector
             transition transform .2s
             svg
@@ -112,21 +166,22 @@ body.active-modal
         &:focus, &:hover
             box-shadow 0 0 0 0.3rem rgba(255, 84, 60, 0.2)
         &:focus
-            border 2px solid darken($ptbd-prim, 25)
+            c border pd-darkprim 2px solid
         &:hover
-            background-color $ptbd-prim
+            c background-color pd-prim
+            color $ptbd-white
             cursor pointer
             .vector
                 transform scale(1.2)
                 svg
-                    fill $ptbd-white
+                    c fill pd-white
             &:active
-                background-color darken($ptbd-prim, 25)
+                c background-color pd-darkprim
                 box-shadow 0 0 0 0.45rem rgba(255, 84, 60, 0.2)
 
 
 header
-    background-color $ptbd-grey
+    c background-color pd-grey
     height 12rem
     display flex
     .inline
@@ -229,6 +284,7 @@ footer
         margin 0 1rem
         a
             display block
+            text-decoration initial
             &:not(:last-child)
                 margin-bottom 1rem
             &:focus
@@ -257,11 +313,11 @@ footer
                     > div
                         padding .5rem .7rem
                     :first-child
-                        background-color $ptbd-white
-                        color $ptbd-black
+                        c background-color pd-white
+                        c color pd-black
                     :last-child
-                        background-color $ptbd-black
-                        color $ptbd-white
+                        c background-color pd-black
+                        c color pd-white
                         
                 .background
                     position absolute
@@ -272,6 +328,7 @@ footer
                     img
                         width 100%
                         height 100%
+                        border-radius .5rem // because safari ignores overflow hidden..
                         object-fit cover
                 
     
@@ -279,11 +336,11 @@ footer
     text-align center
     padding .5rem
     .hidden
-        border .1rem solid $ptbd-darkgrey
+        c border pd-darkgrey .1rem solid
         opacity 0
         cursor pointer
         transition opacity .2s
-        background-color $ptbd-grey
+        c background-color pd-grey
         &:hover, &:active
             opacity 1
     .panels
@@ -293,6 +350,11 @@ footer
         grid-gap .5rem
         @media (max-width: $media-low)
             grid-template-columns auto
+            
+[data-layout^="col1"] .comicpage .panels
+            grid-template-columns auto
+[data-layout^="col2"] .comicpage .panels
+            grid-template-columns auto auto
 
 .horizonalnav
     height 2.25rem
@@ -320,12 +382,14 @@ footer
     position fixed
     display flex
     z-index 99
-    background-color transparentify($ptbd-black, .5)
+    background-color transparentify(#000, .5)
     justify-content center
     align-items center
     left-right-top-bottom 0
+    a
+        text-decoration initial
     .inner
-        background-color $ptbd-white
+        c background-color pd-white
         overflow hidden
         display flex
         border-radius .25rem
@@ -339,13 +403,13 @@ footer
         overflow-y auto
         padding 1rem
         .ptbd-button, .link
-            border 1px solid $ptbd-prim
+            c border pd-prim 1px solid
             border-radius 50rem
             display flex
             height 2rem
         .ptbd-button
             align-items center
-            border-color $ptbd-darkgrey
+            c border-color pd-darkgrey
             remove-native()
             margin 0rem .5rem
             &:not(:last-child)
@@ -353,8 +417,8 @@ footer
             > span
                 margin 0 .7rem 0 .5rem
             .icon
-                background-color $ptbd-darkgrey
-                color $ptbd-white
+                c background-color pd-darkgrey
+                c color pd-white
                 width 1.75rem
                 height 1.75rem
                 margin .15rem
@@ -370,11 +434,11 @@ footer
             &:hover, &:focus
                 background-color inherit
                 cursor pointer
-                border-color $ptbd-prim
+                c border-color pd-prim
                 .icon
-                    background-color $ptbd-prim
+                    c background-color pd-prim
             &:active
-                background-color $ptbd-grey
+                c background-color pd-grey
         .link
             overflow hidden
             position relative
@@ -384,8 +448,8 @@ footer
                 width 100%
                 line-height 1
                 text-align center
-                background-color $ptbd-prim
-                color $ptbd-white
+                c background-color pd-prim
+                c color pd-white
             input
                 flex 1
                 outline none
@@ -394,34 +458,34 @@ footer
                 font-size .9rem
                 padding 0 0 0 .75rem
             > div
-                border-left 1px solid $ptbd-prim
+                c border-left pd-prim 1px solid
                 padding .5rem .5rem .5rem .4rem
                 width 1.2rem
                 &:hover, &:focus
                     cursor pointer
-                    background-color $ptbd-prim
+                    c background-color pd-prim
                     svg
-                        fill $ptbd-white
+                        c fill pd-white
                 &:active
-                    background-color darken($ptbd-prim, 25)
+                    c background-color pd-darkprim
                     svg
-                        fill $ptbd-white
+                        c fill pd-white
         hr
             border none
-            border-top 1px solid $ptbd-darkgrey
+            c border-top pd-darkgrey 1px solid
             margin 1rem
     .header, .footer
         padding .75rem
     .header
-        border-bottom 1px solid $ptbd-grey
+        c border-bottom pd-grey 1px solid
     .footer
-        border-top 1px solid $ptbd-grey
+        c border-top pd-grey 1px solid
         remove-native()
         &:hover, &:focus
-            background-color $ptbd-grey
+            c background-color pd-grey
             cursor pointer
         &:active
-            background-color darken($ptbd-grey, 10)
+            c background-color pd-darkprim
             
 @keyframes fadeIn
   from
