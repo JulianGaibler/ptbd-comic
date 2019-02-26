@@ -1,4 +1,5 @@
 const path = require('path');
+const jet = require('fs-jetpack')
 
 const Page = require('@vuepress/core/lib/prepare/Page')
 const { parseVueFrontmatter: { parse: parseVueFrontmatter } } = require('@vuepress/shared-utils')
@@ -12,6 +13,9 @@ module.exports = ctx => ({
     host: '0.0.0.0',
     //base: '/dist/',
     title: 'Pretends to be Drawing',
+    head: [
+        ['script', {}, jet.read(path.resolve(__dirname, 'headScript.js')) ],
+    ],
     themeConfig: {
         domain: 'https://ptbd.jwels.berlin',
         primary: [{label: 'About', link: '/about'}, {label: 'Archive', link: '/archive'}],
