@@ -345,13 +345,14 @@ footer
             opacity 1
     .panels
         margin .5rem auto
-        display grid
-        grid-template-columns auto auto
+        &:not(.legacy)
+            display grid
+            grid-template-columns auto auto
         grid-gap .5rem
         @media (max-width: $media-low)
             grid-template-columns auto
             
-[data-layout^="col1"] .comicpage .panels
+[data-layout^="col1"] .comicpage .panels, .comicpage .panels.col1
             grid-template-columns auto
 [data-layout^="col2"] .comicpage .panels
             grid-template-columns auto auto

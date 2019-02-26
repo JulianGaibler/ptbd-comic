@@ -29,6 +29,11 @@ module.exports = (options, ctx) => {
             comicData = fileFetcher.fetchAll('./comics', markdown);
             console.log(`${chalk.yellow("PtbD")} Found ${comicData.length} comics: [${comicData.map(c=>c.info.comicID)}]`);
 
+            if (!ctx.isProd) {
+                const len = comicData.length;
+                comicData = comicData.slice(len-16, len-1);
+            }
+
             // Sort comics by date
             comicData.sort((a,b) => a.info.date === b.info.date ? 0 : a.info.date < b.info.date ? -1 : 1)
 
