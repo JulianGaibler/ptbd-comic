@@ -2,7 +2,10 @@
   <div class="body-wrapper">
     <Banner class="markbox bottom" />
     <main>
-        What did just? How did you?
+    	<div class="err404">
+    		<h1>Page not found</h1>
+	        <img :src="require('../../referenced/wrongdoor.svg')">
+	    </div>
     </main>
     <Footer />
   </div>
