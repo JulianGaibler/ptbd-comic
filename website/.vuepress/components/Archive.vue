@@ -13,7 +13,7 @@
                 <article ref="postbox">
                     <div class="info">
                         <div>{{post.title}}</div>
-                        <div>07 Dec</div>
+                        <time :datetime="post.date">{{getDateStr(post.date)}}</time>
                     </div>
                     <ProgressivePanel class="background" :base64="post.thumbnail.preSrc" :imgsrc="post.thumbnail.src" :observeIntersect="true" />
                 </article>
@@ -62,6 +62,9 @@ export default {
         calcMax() {
             const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
             return Math.max(10, -0.038*width + 40)
+        },
+        getDateStr(date) {
+            return DateTime.fromISO(date).toLocal().toFormat('dd LLL')
         }
     },
     computed: {

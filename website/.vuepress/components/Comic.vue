@@ -1,6 +1,7 @@
 <template>
 	<article class="comicpage">
 		<h1>{{info.title}}</h1>
+		<time :datetime="info.date">{{getDateStr(info.date)}}</time>
 		<div :class="classes">
 			<ProgressivePanel v-for="panel in panels" :base64="panel.preSrc" :imgsrc="panel.src" />
 		</div>
@@ -32,5 +33,10 @@ export default {
         }
     },
 	components: { ProgressivePanel, ComicNav }
+    methods: {
+    	getDateStr(date) {
+            return DateTime.fromISO(date).toLocal().toFormat('dd LLL yyyy')
+        },
+    },
 }
 </script>
