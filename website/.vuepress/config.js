@@ -13,7 +13,17 @@ module.exports = ctx => ({
     host: '0.0.0.0',
     //base: '/dist/',
     title: 'Pretends to be Drawing',
+    description: `Listen like no one is singing. Watch like nobody's dancing. Pretend like no one is drawing. This is a Webcomic. I hope.`,
     head: [
+        ['meta', { name: 'theme-color', content: '#db503e' }],
+        ['meta', { name: 'apple-mobile-web-app-title', content: 'Pretends to be Drawing' }],
+        ['meta', { name: 'application-name', content: 'Pretends to be Drawing' }],
+        ['meta', { name: 'msapplication-TileColor', content: '#da532c' }],
+        ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }],
+        ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }],
+        ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }],
+        ['link', { rel: 'manifest', href: '/site.webmanifest' }],
+        ['link', { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#ff543c' }],
         ['script', {}, jet.read(path.resolve(__dirname, 'headScript.js')) ],
     ],
     themeConfig: {
