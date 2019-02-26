@@ -9,6 +9,7 @@
 </template>
 
 <script>
+require('intersection-observer')
 import Vue from 'Vue'
 
 export default {
