@@ -62,7 +62,7 @@ async function createComicPages(comicData, ctx) {
 
         if (isRoot) seoMeta(page, ctx, {
             title: () => 'Pretends to be Drawing',
-            description: () => `Listen like no one is singing. Watch like nobody's dancing. Pretend like no one is drawing. This is a Webcomic. I hope.`,
+            description: () => ctx.siteConfig.description,
             author: () => undefined,
             tags: () => ['Webcomic', 'Comic', 'ptbd', 'Julian Wels', 'jWels'],
         })
