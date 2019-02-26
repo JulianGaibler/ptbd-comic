@@ -68,7 +68,13 @@ module.exports = ctx => ({
                             palette: false
                         })
                         .end() 
-                    .end()    
+                    .use('file-loader')
+                        .loader('file-loader')
+                        .options({
+                            name: 'assets/img/panel/[hash:12].[ext]'
+                        })
+                        .end()
+                    .end()
                 .oneOf('thumbnails')
                     .test(/thumbnail\./)
                     .use('lqip-loader')
@@ -104,10 +110,10 @@ module.exports = ctx => ({
                     .end()
                 .oneOf('allimages')
                     .use('url-loader')
-                        .loader('url-loader')
+                        .loader('file-loader')
                         .options({
                             limit: 1000,
-                            name: `assets/img/[name].[hash:8].[ext]`
+                            name: 'assets/img/[name].[hash:8].[ext]'
                         })
 
         config.module
