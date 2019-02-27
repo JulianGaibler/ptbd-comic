@@ -10,7 +10,6 @@
 </template>
 
 <script>
-require('intersection-observer')
 import Vue from 'Vue'
 
 export default {
@@ -35,7 +34,7 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
-            if (!this.observeIntersect || !'IntersectionObserver' in window) {
+            if (!this.observeIntersect || !('IntersectionObserver' in window)) {
                 this.download();
             } else {
                 let observer = new IntersectionObserver((entries, observer) => {
