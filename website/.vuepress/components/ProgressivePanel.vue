@@ -1,7 +1,7 @@
 <template>
     <figure aria-hidden class="progressive-img">
         <div :style="{'padding-bottom': `${img.hRatio}%`}" />
-        <img v-if="$ssrContext" class="full" :src="img.path.preSrc">
+        <img v-if="$ssrContext" class="full overlay" :src="img.path.src">
         <template v-else>
             <img class="preview" ref="preview" :src="img.path.preSrc" />
             <img ref="full" class="full overlay willAnimate" />

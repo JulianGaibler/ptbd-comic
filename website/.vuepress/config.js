@@ -29,7 +29,7 @@ module.exports = ctx => ({
     themeConfig: {
         domain: 'https://ptbd.jwels.berlin',
         primary: [{label: 'About', link: '/about'}, {label: 'Archive', link: '/archive'}],
-        secondary: [{label: 'Twitter', link: '//twitter.com/JulianWels'}, {label: 'Facebook', link: '//facebook.com/pretendstobedrawing/'}, {label: 'Instagram', link: '//instagram.com/pretendstobedrawing/'}, {label: 'RSS', link: '/feed'}],
+        secondary: [{label: 'Twitter', link: '//twitter.com/JulianWels'}, {label: 'Facebook', link: '//facebook.com/pretendstobedrawing/'}, {label: 'Instagram', link: '//instagram.com/pretendstobedrawing/'}, {label: 'RSS', link: '//ptbd.jwels.berlin/feed'}],
     },
     clientRootMixin: path.resolve(__dirname, 'clientRootMixin.js'),
     plugins: [
