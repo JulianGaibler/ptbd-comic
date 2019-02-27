@@ -13,7 +13,7 @@ export default {
     props: ['type', 'options', 'default', 'afterUpdate'],
     data: function () {
         return {
-           picked: localStorage[`user_${this.type}`] || this.default
+           picked: this.$ssrContext ? this.default : (localStorage[`user_${this.type}`] || this.default)
         }
     },
     watch: {
