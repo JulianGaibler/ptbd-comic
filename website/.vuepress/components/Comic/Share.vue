@@ -65,7 +65,7 @@ export default {
                 color: '#795548',
                 link: this.comicInfo.share,
                 icon: '⬇︎',
-                download: true,
+                download: 'ptbd-comic',
             }, {
                 name: 'Twitter',
                 color: '#55acee',
