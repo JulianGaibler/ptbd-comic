@@ -47,16 +47,6 @@ module.exports = ctx => ({
             updatePopup: true
         }]
     ],
-    // Get's called first
-    extendPageData(page) {
-        if (!page.regularPath.startsWith(`/${comicsDir}`)) return;
-        page.frontmatter.permalink = `/comic/${page.frontmatter.comic_id}/`;
-        page.frontmatter.type = 'comic';
-        page.files = {};
-        comics.push(page);
-        console.log(page);
-    },
-    // Get's called after that
     chainWebpack: config => {
         config.module.rules.delete('images')
         config.module.rules.delete('svg')
