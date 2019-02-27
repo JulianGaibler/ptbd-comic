@@ -38,9 +38,11 @@ export default {
     props: ['year', 'postsSize', 'posts'],
     components: { ArchiveNav, ProgressivePanel },
     mounted() {
+        if (this.isMobileDevice()) return;
         VanillaTilt.init(this.$refs.postbox, {
             max: this.calcMax(),
             //scale: 1.03,
+            gyroscope: false,
             perspective: 8000,
             glare: true,
             'max-glare': .75
@@ -66,6 +68,9 @@ export default {
         },
         getDateStr(date) {
             return DateTime.fromISO(date).toLocal().toFormat('dd LLL')
+        },
+        isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
         }
     },
     computed: {

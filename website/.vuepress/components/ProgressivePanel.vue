@@ -20,7 +20,7 @@ export default {
         },
         animationThreshold: {
             type: Number,
-            default: -1
+            default: 100
         },
         observeIntersect: {
             type: Boolean,
@@ -44,7 +44,7 @@ export default {
                         observer.disconnect()
                     })
                 }, {
-                    threshold: 0.1
+                    threshold: 0
                 })
                 observer.observe(this.$refs.preview);
             }
@@ -53,20 +53,47 @@ export default {
     methods: {
         download() {
             const imageRef = this.$refs.full;
+            const previewRef = this.$refs.preview;
+            const animationEvent = this.whichAnimationEvent();
+            const animationThreshold = this.animationThreshold;
+
             let downloadingImage = new Image();
-            const that = this;
             let currTime = new Date();
+            let loaded = false;
+
             downloadingImage.onload = function() {
+                loaded = true;
                 let diff = (new Date()) - currTime;
-                if (diff > that.animationThreshold) {
+                animationEvent && imageRef.addEventListener(animationEvent, () => {
+                    previewRef.src = '';
+                    previewRef.classList.add('hidden');
+                });
+                if (diff > animationThreshold) {
                     imageRef.classList.add('loaded');
-                    imageRef.src = this.src;
                 } else {
-                    imageRef.src = this.src;
+                    imageRef.classList.add('loaded-quick');
                 }
+                imageRef.src = this.src;
             }
 
             downloadingImage.src = this.img.path.src;
+        },
+        whichAnimationEvent(){
+            var t;
+            var el = document.createElement('fakeelement');
+            var transitions = {
+                'WebkitAnimation' :'webkitAnimationEnd',
+                'MozAnimation'    :'animationend',
+                'MSAnimation'     :'msAnimationEnd',
+                'OAnimation'      :'oAnimationEnd',
+                'animation'       :'animationEnd'
+            }
+        
+            for(t in transitions){
+                if( el.style[t] !== undefined ){
+                    return transitions[t];
+                }
+            }
         }
     }
 }
