@@ -1,5 +1,5 @@
 ---
-title: #artvartist
+title: artvartist
 date: 2018-04-13T13:35:00.000Z
 ---
 
