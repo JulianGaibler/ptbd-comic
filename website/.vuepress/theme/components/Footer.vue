@@ -1,6 +1,6 @@
 <template>
     <footer class="markbox top">
-        <div class="left"><img :src="$withBase('/julianwels.svg')"></div>
+        <Link class="left" to="//jwels.berlin/"><img :src="$withBase('/julianwels.svg')"></Link>
         <div class="right">
             <Link to="//jwels.berlin/info/impressum.html">Legal & Privacy</Link>
         </div>
