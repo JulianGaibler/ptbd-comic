@@ -133,6 +133,10 @@ body.active-modal
     .preview
         filter blur(20px)
         transform scale(1.1)
+        &.hidden
+            display none
+            transform none
+            filter none
     .indicator {
         position absolute
         left-right-top-bottom 0
@@ -149,6 +153,8 @@ body.active-modal
             will-change transform, opacity, filter
         &.loaded
             -webkit-animation fadeIn .25s
+        &.loaded-quick
+            -webkit-animation fadeInQuick .15s
 
 .ptbd-button
     c background-color pd-white
@@ -500,11 +506,15 @@ footer
   from
     opacity 0
     transform scale(1.1)
-    filter blur(20px)
   to
     opacity 1
     transform scale(1)
-    filter blur(0)
+    
+@keyframes fadeInQuick
+  from
+    opacity 0
+  to
+    opacity 1
 
 .fade-enter-active, .fade-leave-active 
     transition opacity .25s
