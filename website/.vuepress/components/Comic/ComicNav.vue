@@ -4,7 +4,7 @@
             <Vector :src="require('../../referenced/icon_arrow_back.svg')" />
         </Link>
 
-        <Link v-if="noSharebox" class="ptbd-button" :to="share" download target="_blank" rel="noopener noreferrer" aria-label="Download as Image">
+        <Link v-if="noSharebox" class="ptbd-button" :to="$withBase(share)" download target="_blank" rel="noopener noreferrer" aria-label="Download as Image">
             <Vector :src="require('../../referenced/icon_share.svg')" />
         </Link>
         <div v-else class="ptbd-button" @click="openShare" role="button" aria-label="Share Dialog">
