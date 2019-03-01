@@ -1,5 +1,4 @@
-# Pretends to be Drawing
-made with VuePress
+![ptbd-comic](http://qvieo.com/githubimg/ptbd-comic-banner.png)
 
 ## Build Setup
 
