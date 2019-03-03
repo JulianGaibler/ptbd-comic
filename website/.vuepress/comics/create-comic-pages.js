@@ -117,6 +117,7 @@ async function createArchivePages(comicData, ctx) {
     for (let year in archivePages) {
         recentYear = Math.max(year, recentYear);
         archivePages[year].year = Number.parseInt(year);
+        archivePages[year].posts.reverse();
         archivePages[year].size = archivePages[year].posts.length;
     }
     let years = Object.keys(archivePages);
