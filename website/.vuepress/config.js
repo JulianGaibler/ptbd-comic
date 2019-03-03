@@ -1,17 +1,10 @@
 const path = require('path');
 const jet = require('fs-jetpack')
-
-const Page = require('@vuepress/core/lib/prepare/Page')
-const { parseVueFrontmatter: { parse: parseVueFrontmatter } } = require('@vuepress/shared-utils')
 const container = require('markdown-it-container');
-
-const comicsDir = "_comics"
-let comics = [];
-let sortedYears = [];
 
 module.exports = ctx => ({
     host: '0.0.0.0',
-    //base: '/dist/',
+    // base: '/gamma/',
     title: 'Pretends to be Drawing',
     description: `Listen like no one is singing. Watch like nobody's dancing. Pretend like no one is drawing. This is a Webcomic. I hope.`,
     head: [
@@ -29,9 +22,13 @@ module.exports = ctx => ({
     themeConfig: {
         domain: 'https://ptbd.jwels.berlin',
         primary: [{label: 'About', link: '/about'}, {label: 'Archive', link: '/archive'}],
-        secondary: [{label: 'Twitter', link: '//twitter.com/JulianWels'}, {label: 'Facebook', link: '//facebook.com/pretendstobedrawing/'}, {label: 'Instagram', link: '//instagram.com/pretendstobedrawing/'}, {label: 'RSS', link: '//ptbd.jwels.berlin/feed'}],
+        secondary: [
+            {label: 'Twitter', link: '//twitter.com/JulianWels'},
+            {label: 'Facebook', link: '//facebook.com/pretendstobedrawing/'},
+            {label: 'Instagram', link: '//instagram.com/pretendstobedrawing/'},
+            {label: 'RSS', link: '//ptbd.jwels.berlin/feed'}
+        ],
     },
-    clientRootMixin: path.resolve(__dirname, 'clientRootMixin.js'),
     plugins: [
         require('./comics/create-comic-pages.js'),
         ['@vuepress/last-updated', {
@@ -42,6 +39,7 @@ module.exports = ctx => ({
             changefreq: 'weekly'
         }]
     ],
+    clientRootMixin: path.resolve(__dirname, 'clientRootMixin.js'),
     chainWebpack: config => {
         config.module.rules.delete('images')
         config.module.rules.delete('svg')
@@ -123,7 +121,9 @@ module.exports = ctx => ({
                         })
     },
     markdown: {
-        anchor: {permalink: false},
+        anchor: {
+            permalink: false
+        },
         extendMarkdown: md => {
             md.use(container, 'hidden', {
                 render: function(tokens, idx) {
