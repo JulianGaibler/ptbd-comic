@@ -43,7 +43,7 @@ module.exports = (comicData, context) => {
         })
     })
 
-    jet.writeAsync(path.resolve(context.outDir, 'feed.xml'), feed.atom1());
-    jet.writeAsync(path.resolve(context.outDir, 'feed', 'rss.xml'), feed.rss2());
-    jet.writeAsync(path.resolve(context.outDir, 'feed', 'json.json'), feed.json1());
+    jet.writeAsync(path.resolve(context.outDir, 'feed', 'index.xml'), feed.atom1());
+    jet.writeAsync(path.resolve(context.outDir, 'feed', 'rss', 'index.xml'), feed.rss2());
+    jet.writeAsync(path.resolve(context.outDir, 'feed', 'json', 'index.json'), feed.json1());
 }
