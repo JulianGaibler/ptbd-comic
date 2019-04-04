@@ -1,6 +1,6 @@
 const chalk = require('chalk')
-const Page = require('@vuepress/core/lib/prepare/Page')
-const createMarkdown = require('@vuepress/core/lib/prepare/createMarkdown')
+const Page = require('@vuepress/core/lib/node/Page')
+const createMarkdown = require('@vuepress/core/lib/node/createMarkdown')
 
 const seoMeta = require('./utils/seo-meta.js');
 const feed = require('./utils/feed.js');
@@ -65,6 +65,7 @@ async function createComicPages(comicData, ctx) {
         let page = await createPage(ctx, content, options, `c/${data.info.comicID}${isRoot ? 'r' : ''}`);
         page.frontmatter = {...page.frontmatter, ...data.info, ...{
             home: isRoot,
+            layout: 'default',
             prevComic: i===0 ? null : `/comic/${comicData[i-1].info.comicID}/`,
             nextComic: i===injectLength-1 ? null : `/comic/${comicData[i+1].info.comicID}/`,
         }}
