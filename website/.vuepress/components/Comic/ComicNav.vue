@@ -26,7 +26,7 @@ import Share from './Share'
 
 export default {
     name: 'ComicNav',
-    props: ['prev', 'next', 'share'],
+    props: ['prev', 'next', 'share', 'comicID'],
     data() {
         return {
             noSharebox: true,
@@ -56,7 +56,7 @@ export default {
         comicInfo() {
             return {
                 title: `${this.$page.title} | ${this.$site.title}`,
-                url: (this.$site.themeConfig.domain || '') + this.$page.path,
+                url: (this.$site.themeConfig.domain || '') + `/comic/${this.comicID}`,
                 share: this.share,
             }
         }
