@@ -32,10 +32,12 @@ module.exports = (options, ctx) => {
             // Sort comics by date
             comicData.sort((a,b) => a.info.date === b.info.date ? 0 : a.info.date < b.info.date ? -1 : 1)
 
-            if (!ctx.isProd) {
-                const len = comicData.length;
-                comicData = comicData.slice(len-16, len-1);
-            }
+            // TODO: This is broken for some reason?
+            //if (!ctx.isProd) {
+            //    const len = comicData.length;
+            //    comicData = comicData.slice(len-16, len);
+            //    console.log(`${chalk.yellow("PtbD")} This is development-mode. Showing comics: [${comicData.map(c=>c.info.comicID)}]`);
+            //}
 
             await createComicPages(comicData, ctx);
 
@@ -138,6 +140,7 @@ async function createArchivePages(comicData, ctx) {
         };
         let page = await createPage(ctx, content, options, `a/${data.year}${isRoot ? 'r' : ''}`);
         page.frontmatter = {...page.frontmatter, ...{
+            layout: 'default',
             prevYear: i===0 ? null : `/archive/${years[i-1]}/`,
             nextYear: i===yearsLength-1 ? null : `/archive/${years[i+1]}/`,
         }}
