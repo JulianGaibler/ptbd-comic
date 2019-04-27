@@ -1,5 +1,5 @@
 ---
-title: Into the Cyberverse
+title: Into the Cyber-Verse
 date: 2019-04-01T16:59:00.000Z
 ---
 
