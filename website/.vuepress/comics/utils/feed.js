@@ -34,7 +34,7 @@ module.exports = (comicData, context) => {
             link: `${domain}/comic/${comic.info.comicID}/`,
             description: comic.info.description,
             content: `
-                <img src="${domain}/share/${comic.info.comicID}.jpg">
+                <img src="${domain}/share/${comic.info.comicID}.png">
                 ${comic.content}
             `,
             author,
