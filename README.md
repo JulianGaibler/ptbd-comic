@@ -1,4 +1,8 @@
-![ptbd-comic](http://qvieo.com/githubimg/ptbd-comic-banner.png)
+![ptbd-comic](http://qvieo.com/githubimg/banner_ptbd_website.png)
+
+## Introduction
+
+The VuePress-Website for my Comic about social-media, society, bricks, bad jokes, good jokes and everything else I come up with during the day.
 
 ## Build Setup
 
@@ -15,8 +19,8 @@ npm run build
 ```
 ## Linting
 
-Todo
+`//Todo`
 
 ## Commits
 
-Use [gitmoji](https://gitmoji.carloscuesta.me/) for all commits
+Use [gitmoji](https://gitmoji.carloscuesta.me/) for all commits.
