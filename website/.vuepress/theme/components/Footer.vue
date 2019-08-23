@@ -2,7 +2,7 @@
     <footer class="markbox top">
         <Link class="left" to="//jwels.berlin/"><img :src="$withBase('/julianwels.svg')"></Link>
         <div class="right">
-            <Link to="//jwels.berlin/info/impressum.html">Legal & Privacy</Link>
+            <Link to="//jwels.berlin/imprint/">Legal & Privacy</Link>
         </div>
     </footer>
 </template>
