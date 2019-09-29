@@ -8,5 +8,5 @@ Felix got himself a new printer with fancy networking capabilities.
 ::: hidden
 Step 1: Make them dependent on me.
 
-Stel 2: Refuse to print anything.
+Step 2: Refuse to print anything.
 :::
