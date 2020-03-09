@@ -7,7 +7,10 @@ I know it's a complicated metaphor and all. But if you think about it for a whil
 
 ::: hidden
 You're a painting to my ears
+
 I had to watch just to find you
+
 I'd like for you to let me show you a sunset
+
 Give you a visual impression you feel
 :::
