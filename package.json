@@ -10,24 +10,24 @@
   "author": "JulianWels",
   "license": "MIT",
   "devDependencies": {
-    "@vuepress/plugin-pwa": "^1.5.2",
+    "@vuepress/plugin-pwa": "^1.8.2",
     "chalk": "^2.4.2",
-    "feed": "^4.2.1",
-    "fs-jetpack": "^3.1.0",
-    "lqip-loader": "^2.2.0",
-    "node-html-parser": "^1.2.20",
+    "feed": "^4.2.2",
+    "fs-jetpack": "^4.1.0",
+    "lqip-loader": "^2.2.1",
+    "node-html-parser": "^3.3.0",
     "svg-inline-loader": "^0.8.2",
-    "vuepress": "^1.5.2"
+    "vuepress": "^1.8.2"
   },
   "dependencies": {
     "add": "^2.0.6",
-    "debounce": "^1.2.0",
-    "image-size": "^0.8.3",
-    "luxon": "^1.24.1",
+    "debounce": "^1.2.1",
+    "image-size": "^1.0.0",
+    "luxon": "^1.27.0",
     "nprogress": "^0.2.0",
     "vanilla-tilt": "^1.7.0",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11",
+    "vue": "^2.6.12",
+    "vue-template-compiler": "^2.6.12",
     "vuepress-plugin-sitemap": "^2.3.1"
   }
 }
