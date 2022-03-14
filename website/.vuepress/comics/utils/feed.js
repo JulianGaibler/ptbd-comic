@@ -30,7 +30,7 @@ module.exports = (comicData, context) => {
             : [{name:"Julian Wels"}];
         feed.addItem({
             title: comic.info.title,
-            id: comic.info.comicID,
+            id: ''+comic.info.comicID,
             link: `${domain}/comic/${comic.info.comicID}/`,
             description: comic.info.description,
             content: `
