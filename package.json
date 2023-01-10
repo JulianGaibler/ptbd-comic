@@ -23,7 +23,7 @@
     "add": "^2.0.6",
     "debounce": "^1.2.1",
     "image-size": "^1.0.0",
-    "luxon": "^1.27.0",
+    "luxon": "^1.28.1",
     "nprogress": "^0.2.0",
     "vanilla-tilt": "^1.7.0",
     "vue": "^2.6.12",
