@@ -1,0 +1,19 @@
+@use 'tint/styles/bootstrap' as bootstrap
+@use './colors'
+
+
+@include bootstrap.generate-color-variables(colors.$colors)
+
+@media (prefers-color-scheme: dark)
+  @include bootstrap.generate-color-variables(colors.$colors-dark)
+
+@include bootstrap.generate-font-faces("~tint/fonts")
+
+@include bootstrap.full-bootstrap()
+
+html
+  height: 100%
+body
+  min-height: 100%
+  display: flex
+  flex-direction: column

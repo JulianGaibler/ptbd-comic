@@ -1,0 +1,29 @@
+---
+import { getAllComics, type ComicProps } from '@src/comic-data'
+import ComicPage from '@src/components/ComicPage.astro'
+import type { ComicMeta } from '@src/import-utils'
+import Layout from '@src/layouts/Layout.astro'
+import type { MarkdownInstance } from 'astro'
+
+const allPosts = import.meta.glob<MarkdownInstance<ComicMeta>>(
+  '../../comics/*/README.md',
+  { eager: true },
+)
+const allPanels = import.meta.glob<{ default: ImageMetadata }>(
+  '../../comics/*/panel*.png',
+  { eager: true },
+)
+const allThumbnails = import.meta.glob<{ default: ImageMetadata }>(
+  '../../comics/*/thumbnail.jpg',
+  { eager: true },
+)
+
+const comics = await getAllComics(allPosts, allPanels, allThumbnails)
+
+type Props = ComicProps
+const props = comics[comics.length - 1].props
+---
+
+<Layout>
+  <ComicPage {...props} />
+</Layout>

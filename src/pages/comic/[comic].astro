@@ -1,0 +1,31 @@
+---
+import { getAllComics, type ComicProps } from '@src/comic-data'
+import ComicPage from '@src/components/ComicPage.astro'
+import type { ComicMeta } from '@src/import-utils'
+import Layout from '@src/layouts/Layout.astro'
+import type { MarkdownInstance } from 'astro'
+
+export async function getStaticPaths() {
+  const allPosts = import.meta.glob<MarkdownInstance<ComicMeta>>(
+    '../../../comics/*/README.md',
+    { eager: true },
+  )
+  const allPanels = import.meta.glob<{ default: ImageMetadata }>(
+    '../../../comics/*/panel*.png',
+    { eager: true },
+  )
+  const allThumbnails = import.meta.glob<{ default: ImageMetadata }>(
+    '../../../comics/*/thumbnail.jpg',
+    { eager: true },
+  )
+
+  return await getAllComics(allPosts, allPanels, allThumbnails)
+}
+
+type Props = ComicProps
+const props = Astro.props
+---
+
+<Layout comicProps={props}>
+  <ComicPage {...props} />
+</Layout>

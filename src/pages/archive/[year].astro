@@ -1,0 +1,30 @@
+---
+import { getAllArchives, type ArchiveProps } from '@src/archive-data'
+import ArchivePage from '@src/components/ArchivePage.astro'
+import type { ComicMeta } from '@src/import-utils'
+import Layout from '@src/layouts/Layout.astro'
+import type { MarkdownInstance } from 'astro'
+
+export async function getStaticPaths() {
+  const allPosts = import.meta.glob<MarkdownInstance<ComicMeta>>(
+    '../../../comics/*/README.md',
+    { eager: true },
+  )
+  const allPanels = import.meta.glob<{ default: ImageMetadata }>(
+    '../../../comics/*/thumbnail.jpg',
+    { eager: true },
+  )
+
+  return await getAllArchives(allPosts, allPanels)
+}
+
+type Props = ArchiveProps
+const props = Astro.props
+---
+
+<Layout
+  title={`Archive ${props.year}`}
+  description={`Archive of all comics from ${props.year}`}
+>
+  <ArchivePage {...props} />
+</Layout>

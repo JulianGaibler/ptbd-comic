@@ -1,0 +1,113 @@
+---
+import Layout from '@src/layouts/Layout.astro'
+import { Button } from 'tint/components/index'
+import iconArrowLeft from 'tint/icons/20-arrow-left.svg?raw'
+import iconArrowRight from 'tint/icons/20-arrow-right.svg?raw'
+import iconShare from 'tint/icons/20-link.svg?raw'
+import { comicDateFormatter } from '@src/comic-data'
+import type { ArchiveProps } from '@src/archive-data'
+import OptimizedImg from './OptimizedImg.astro'
+
+type Props = ArchiveProps
+const { year, humanEraYear, items, nextYear, prevYear } = Astro.props
+---
+
+<div class="header">
+  <Button
+    icon={true}
+    disabled={prevYear === undefined}
+    href={`/archive/${prevYear}`}
+    ariaLabel={`Previous year: ${prevYear}`}
+  >
+    <Fragment set:html={iconArrowLeft} />
+  </Button>
+  <h1>
+    <span class="tint--type-body-serif">Human Era</span>
+    <time class="tint--type-body-serif-small" datetime={year}>{humanEraYear}</time>
+  </h1>
+  <Button
+    icon={true}
+    disabled={nextYear === undefined}
+    href={`/archive/${nextYear}`}
+    ariaLabel={`Next year: ${nextYear}`}
+  >
+    <Fragment set:html={iconArrowRight} />
+  </Button>
+</div>
+
+<ul>
+  {
+    items.map((item) => (
+      <li>
+        <a href={`/comic/${item.comicID}`}>
+          <div class="thumb tint--card" aria-hidden="true">
+            <OptimizedImg src={item.thumbnailFile} />
+          </div>
+          <div class="info">
+            <h2 class="tint--type-body-serif-bold">{item.title}</h2>
+            <time datetime={item.date.toISOString()}>
+              {comicDateFormatter.format(item.date)}
+            </time>
+          </div>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<div class="footer">
+  <Button
+    icon={true}
+    disabled={prevYear === undefined}
+    href={`/archive/${prevYear}`}
+    ariaLabel={`Previous year: ${prevYear}`}
+  >
+    <Fragment set:html={iconArrowLeft} />
+  </Button>
+  <p>{items.length} comic{items.length === 1 ? '' : 's'}</p>
+  <Button
+    icon={true}
+    disabled={nextYear === undefined}
+    href={`/archive/${nextYear}`}
+    ariaLabel={`Next year: ${nextYear}`}
+  >
+    <Fragment set:html={iconArrowRight} />
+  </Button>
+</div>
+
+<style lang="sass">
+  .header, .footer
+    display: flex
+    justify-content: space-between
+    align-items: center
+    h1
+      display: flex
+      flex-direction: column
+      align-items: center
+
+  ul
+    list-style: none
+    margin-block: tint.$size-medium
+    li:not(:last-child)
+      margin-bottom: tint.$size-xsmall
+    a
+      text-decoration: none
+      &:hover, &:focus
+        outline: none
+        color: var(--tint-text-link)
+        .thumb
+          outline: tint.$button-border-width solid var(--tint-text-link)
+          outline-offset: tint.$button-border-width
+
+  .thumb
+    line-height: 0
+    overflow: hidden
+    img
+      width: 100%
+      height: auto
+  .info
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: tint.$size-xxxsmall
+</style>

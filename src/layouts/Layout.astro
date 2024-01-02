@@ -1,0 +1,129 @@
+---
+import Header from '@src/components/Header.astro'
+import Footer from '@src/components/Footer.astro'
+import fonts from 'tint/fonts'
+import type { ComicProps } from '@src/comic-data'
+import { FULLDOMAIN } from '@src/constants'
+
+interface Props {
+  title?: string
+  description?: string
+  fullPath?: string
+  comicProps?: ComicProps
+}
+
+const { title, comicProps } = Astro.props
+
+const banner = comicProps
+  ? `${FULLDOMAIN}${comicProps.thumbnailFile.src}`
+  : `${FULLDOMAIN}/default-banner.png`
+
+const metaDescription =
+  Astro.props.description || comicProps?.description || 'A webcomic... I guess?'
+
+const metaPath =
+  Astro.props.fullPath ||
+  (comicProps ? `${FULLDOMAIN}/comic/${comicProps.comicId}` : undefined)
+
+const aTitle = title || comicProps?.title || undefined
+
+const metaTitle = `${aTitle ? `${aTitle} | ` : ''}Pretends to be Drawing`
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {
+      fonts.map((item) => (
+        <link
+          rel="preload"
+          href={item}
+          as="font"
+          type="font/woff2"
+          crossorigin
+        />
+      ))
+    }
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff543c" />
+
+    <meta name="theme-color" content="#db503e" />
+    <meta name="apple-mobile-web-app-title" content="Pretends to be Drawing" />
+    <meta name="application-name" content="Pretends to be Drawing" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+
+    <title>{metaTitle}</title>
+    {metaDescription && <meta name="description" content={metaDescription} />}
+
+    <meta name="twitter:image" content={banner} />
+    <meta property="og:image" content={banner} />
+    {
+      comicProps && (
+        <meta
+          property="article:published_time"
+          content={comicProps.date.toISOString()}
+        />
+      )
+    }
+    {
+      comicProps && (
+        <meta
+          property="article:modified_time"
+          content={comicProps.date.toISOString()}
+        />
+      )
+    }
+    <meta property="og:site_name" content="Pretends to be Drawing" />
+    <meta property="og:title" content={comicProps?.title || metaTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:type" content="website" />
+    {metaPath && <meta property="og:url" content={metaPath} />}
+    <meta name="twitter:title" content={comicProps?.title || metaTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    {metaPath && <meta name="twitter:url" content={metaPath} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:label1" content="Created by" />
+    <meta name="twitter:data2" content="Julian Gaibler" />
+    <meta name="twitter:creator" content="@JulianGaibler" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta property="article:tag" content="Webcomic" />
+  </head>
+  <body>
+    <a href="#content" class="tint--tinted skip-link">Skip to content</a>
+    <Header />
+    <main id="content">
+      <div class="content">
+        <slot />
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global lang="sass">
+  @import "../styles/global"
+
+  main
+    flex: 1
+
+  .skip-link
+    position: absolute
+    top: tint.$size-xxxsmall
+    left: tint.$size-xxxsmall
+    padding: tint.$size-xxsmall tint.$size-xsmall
+    background: var(--tint-bg)
+    transform: translateY(-100%)
+    &:focus
+      transform: translateY(0)
+
+  .content
+    max-width: 720px
+    margin: 0 auto
+    padding-block-end: tint.$size-xsmall
+    padding-inline: tint.$size-xsmall
+</style>
