@@ -1,0 +1,27 @@
+---
+import { getImage } from 'astro:assets'
+
+type Props = {
+  src: ImageMetadata
+  alt?: string
+  className?: string
+}
+
+const { src, alt, className } = Astro.props
+
+const optimizedAvif = await getImage({ src, format: 'avif' })
+---
+
+<picture class={className}>
+  <source srcset={optimizedAvif.src} type="image/avif" />
+  <img src={src.src} alt={alt} />
+</picture>
+
+<style lang="sass">
+  picture
+    display: block
+    overflow: hidden
+  img
+    display: block
+    width: 100%
+</style>

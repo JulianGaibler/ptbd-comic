@@ -1,0 +1,72 @@
+---
+import Layout from '@src/layouts/Layout.astro'
+import me from './me.png'
+import cc from './cc.svg'
+import OptimizedImg from '@src/components/OptimizedImg.astro'
+---
+
+<Layout title="About">
+  <h1 class="tint--type-display-serif-3">About</h1>
+  <OptimizedImg
+    className="tint--card"
+    src={me}
+    alt="Emily waving and saying hi"
+  />
+  <h2>Feed</h2>
+  <p>
+    There is an <a href="/feed">ATOM Feed</a>, a <a href="/feed/rss">RSS Feed</a
+    > and a <a href="/feed/json">JSON Feed</a> you can subscribe to.
+  </p>
+  <h2>License</h2>
+
+  <p>
+    <img class="license" src={cc.src} alt="Creative Commons License" />
+     The comics are licensed under <a
+      href="http://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1"
+      target="_blank"
+      rel="noopener noreferrer"
+      >Attribution-NonCommercial-ShareAlike 4.0 International</a
+    >
+  </p>
+
+  <h2>Permalinks</h2>
+  <p>
+    I am trying to guarantee that the links listed here will always work, no
+    matter what.
+  </p>
+  <pre
+    class="tint--tinted tint--card"><code>ptbd.jwels.berlin/comic/[comicID]
+ptbd.jwels.berlin/share/[comicID].png</code></pre>
+  <pre
+    class="tint--tinted tint--card"><code>ptbd.jwels.berlin/feed
+ptbd.jwels.berlin/feed/rss</code></pre>
+  <pre
+    class="tint--tinted tint--card"><code>ptbd.jwels.berlin/archive
+ptbd.jwels.berlin/archive/[year]</code></pre>
+</Layout>
+
+<style lang="sass">
+  h1
+    text-align: center
+    margin-block-end: .5em
+  h2
+    margin-block-start: 1em
+    margin-block-end: 0.25em
+  p
+    @include tint.type-class(body-serif)
+    margin-block: 1em
+  pre
+    box-shadow: none
+    padding: 16px
+    margin-block: 1em
+    overflow-x: auto
+  code
+    font-family: monospace
+  img
+    width: 100%
+    height: auto
+  .license
+    max-width: 200px
+    display: block
+    margin: 1rem auto
+</style>

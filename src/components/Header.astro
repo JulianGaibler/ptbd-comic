@@ -1,0 +1,67 @@
+---
+import logo from '@src/assets/ptbd-logo.svg?raw'
+---
+
+<header class="tint--tinted">
+  <a class="logo" href="/" aria-label="Pretends to be Drawing"
+    ><Fragment set:html={logo} /></a
+  >
+  <nav>
+    <ul class="tint--type-body-sans">
+      <li class="tint--type-body-sans-bold">
+        <a href="/about" class="">About</a>
+      </li>
+      <li class="tint--type-body-sans-bold">
+        <a href="/archive" class="">Archive</a>
+      </li>
+      <li>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="//facebook.com/pretendstobedrawing/">Facebook</a
+        >
+      </li>
+      <li>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="//instagram.com/pretendstobedrawing/">Instagram</a
+        >
+      </li>
+      <li>
+        <a target="_blank" rel="noopener noreferrer" href="/feed">RSS</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style lang="sass">
+  .logo
+    color: var(--tint-text-accent)
+  header
+    display: flex
+    flex-direction: column
+    align-items: center
+    padding: tint.$size-medium
+    gap: tint.$size-xsmall
+    position: relative
+    &::before
+      content: ''
+      inset: 0
+      bottom: -128px
+      position: absolute
+      background: var(--tint-bg)
+      z-index: -1
+  ul
+    list-style: none
+    display: flex
+    gap: tint.$size-xxxsmall tint.$size-xsmall
+    flex-wrap: wrap
+    justify-content: center
+    a
+      text-decoration: none
+      &:hover
+        text-decoration: underline
+  a:hover, a:focus
+    color: var(--tint-text-link)
+</style>

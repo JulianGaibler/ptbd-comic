@@ -1,0 +1,108 @@
+---
+import { Button } from 'tint/components/index'
+import ShareButton from '@src/components/ShareButton.svelte'
+import iconArrowLeft from 'tint/icons/20-arrow-left.svg?raw'
+import iconArrowRight from 'tint/icons/20-arrow-right.svg?raw'
+import { comicDateFormatter, type ComicProps } from '@src/comic-data'
+import OptimizedImg from './OptimizedImg.astro'
+
+type Props = ComicProps
+const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
+  Astro.props
+---
+
+<div class="header">
+  <h1 class="tint--type-title-serif-2">{title}</h1>
+  <time datetime={date.toISOString()}>{comicDateFormatter.format(date)}</time>
+</div>
+
+<section class:list={['sections', parseInt(comicId) < 45 && 'legacy']}>
+  {
+    panelFiles.map((file, i) => (
+      <OptimizedImg
+        src={file}
+        alt={alt ? alt[i] : 'Sorry, older comics do not have alt-text.'}
+      />
+    ))
+  }
+</section>
+
+<div class="footer">
+  <div class="text tint--type-body-serif">
+    <Content />
+  </div>
+  <nav>
+    <Button
+      ariaLabel="Previous comic"
+      icon={true}
+      disabled={prevComic === undefined}
+      href={`/comic/${prevComic}`}
+    >
+      <Fragment set:html={iconArrowLeft} />
+    </Button>
+    <ShareButton client:idle comicId={comicId} />
+    <Button
+      ariaLabel="Next comic"
+      icon={true}
+      disabled={nextComic === undefined}
+      href={`/comic/${nextComic}`}
+    >
+      <Fragment set:html={iconArrowRight} />
+    </Button>
+  </nav>
+</div>
+
+<style lang="sass">
+  .header
+    display: flex
+    justify-content: space-between
+    align-items: flex-end
+    margin-block-end: tint.$size-xxxsmall
+    h1
+      margin: 0
+    time
+      font-size: tint.$size-xsmall
+      color: var(--text-secondary)
+  .content
+    max-width: 720px
+    margin: 0 auto
+    padding-block-end: tint.$size-xsmall
+    padding-inline: tint.$size-xsmall
+  .sections
+    display: grid
+    grid-template-columns: auto auto
+    width: 100%
+    grid-gap: tint.$size-xxxsmall
+    &.legacy
+      grid-template-columns: 1fr
+    @media (max-width: 550px)
+      grid-template-columns: 1fr
+
+  .footer
+    margin-block-start: 12px
+    display: grid
+    grid-template-columns: auto 1fr
+    gap: tint.$size-xsmall
+    grid-template-areas: "nav text"
+    nav
+      grid-area: nav
+      display: flex
+      gap: tint.$size-xxxsmall
+    .text
+      grid-area: text
+      margin-block-start: 14px
+      :global(.hidden)
+        display: inline-block
+        padding: tint.$size-xxxsmall
+        margin-block-start: tint.$size-xxxsmall
+        background: var(--tint-bg)
+        border: 1px solid var(--tint--card-border)
+        border-radius: tint.$size-xxxsmall
+        opacity: 0
+        transition: opacity 0.2s ease-in-out
+        background: repeating-linear-gradient(45deg,#FFF8F5,#FFF8F5 10px,#FFFDFC 10px, #FFFDFC 20px)
+        @media (prefers-color-scheme: dark)
+          background: repeating-linear-gradient(45deg,#271614,#271614 10px,#1C1312 10px, #1C1312 20px)
+        &:hover, &:focus
+          opacity: 1
+</style>
