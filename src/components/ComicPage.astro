@@ -57,22 +57,22 @@ const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
     display: flex
     justify-content: space-between
     align-items: flex-end
-    margin-block-end: tint.$size-xxxsmall
+    margin-block-end: tint.$size-8
     h1
       margin: 0
     time
-      font-size: tint.$size-xsmall
+      font-size: tint.$size-16
       color: var(--text-secondary)
   .content
     max-width: 720px
     margin: 0 auto
-    padding-block-end: tint.$size-xsmall
-    padding-inline: tint.$size-xsmall
+    padding-block-end: tint.$size-16
+    padding-inline: tint.$size-16
   .sections
     display: grid
     grid-template-columns: auto auto
     width: 100%
-    grid-gap: tint.$size-xxxsmall
+    grid-gap: tint.$size-8
     &.legacy
       grid-template-columns: 1fr
     @media (max-width: 550px)
@@ -82,22 +82,22 @@ const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
     margin-block-start: 12px
     display: grid
     grid-template-columns: auto 1fr
-    gap: tint.$size-xsmall
+    gap: tint.$size-16
     grid-template-areas: "nav text"
     nav
       grid-area: nav
       display: flex
-      gap: tint.$size-xxxsmall
+      gap: tint.$size-8
     .text
       grid-area: text
       margin-block-start: 14px
       :global(.hidden)
         display: inline-block
-        padding: tint.$size-xxxsmall
-        margin-block-start: tint.$size-xxxsmall
+        padding: tint.$size-8
+        margin-block-start: tint.$size-8
         background: var(--tint-bg)
         border: 1px solid var(--tint--card-border)
-        border-radius: tint.$size-xxxsmall
+        border-radius: tint.$size-8
         opacity: 0
         transition: opacity 0.2s ease-in-out
         background: repeating-linear-gradient(45deg,#FFF8F5,#FFF8F5 10px,#FFFDFC 10px, #FFFDFC 20px)

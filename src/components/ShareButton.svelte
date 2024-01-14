@@ -123,12 +123,12 @@
 <style lang="sass">
 dialog
   margin: auto
-  width: calc(100% - tint.$size-medium)
+  width: calc(100% - tint.$size-32)
   max-width: 384px
   overflow: hidden
 
 header, .share-links, .copy-link
-  padding: tint.$size-xsmall
+  padding: tint.$size-16
   display: flex
   background: var(--tint-bg)
 
@@ -152,15 +152,15 @@ header, .share-links, .copy-link
     flex: 1
     border: none
     background: none
-    padding: tint.$size-xxsmall
+    padding: tint.$size-12
     border-radius: tint.$input-radius
     color: var(--tint-text)
   button
     border: none
     background: none
-    height: calc(100% - tint.$size-xxxsmall)
+    height: calc(100% - tint.$size-8)
     aspect-ratio: 1
-    margin: tint.$size-xxxxsmall
+    margin: tint.$size-4
     display: flex
     align-items: center
     justify-content: center
@@ -173,16 +173,16 @@ header, .share-links, .copy-link
 
 header
   border-bottom: 1px solid var(--tint--card-border)
-  gap: tint.$size-xxxsmall
+  gap: tint.$size-8
   align-items: center
   justify-content: space-between
-  padding-block: tint.$size-xxxsmall
-  padding-inline-end: tint.$size-xxxsmall
+  padding-block: tint.$size-8
+  padding-inline-end: tint.$size-8
   > :global(button)
     border: none
 
 .share-links
   display: grid
   grid-template-columns: repeat(auto-fill, minmax(128px, 1fr))
-  gap: tint.$size-xxxsmall
+  gap: tint.$size-8
 </style>
