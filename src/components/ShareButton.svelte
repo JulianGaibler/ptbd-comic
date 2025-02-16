@@ -76,8 +76,11 @@
 </script>
 
 {#if isClient}
-  <Button title="Share comic" icon={true} on:click={openShareDialog} ariaLabel="Share comic"
-    >{@html iconShare}</Button
+  <Button
+    title="Share comic"
+    icon={true}
+    on:click={openShareDialog}
+    ariaLabel="Share comic">{@html iconShare}</Button
   >
 
   <dialog
@@ -86,9 +89,14 @@
     aria-labelledby="share-dialog-heading"
   >
     <header class="tint--tinted">
-      <h1 id="share-dialog-heading" class="tint--type-title-serif-3">Share this comic</h1>
-      <Button icon={true} small={true} on:click={() => dialogElement.close()} ariaLabel="Close dialog"
-        >{@html iconClose}</Button
+      <h1 id="share-dialog-heading" class="tint--type-title-serif-3">
+        Share this comic
+      </h1>
+      <Button
+        icon={true}
+        small={true}
+        on:click={() => dialogElement.close()}
+        ariaLabel="Close dialog">{@html iconClose}</Button
       >
     </header>
     <div class="copy-link">
@@ -165,7 +173,7 @@ header, .share-links, .copy-link
     align-items: center
     justify-content: center
     border-radius: tint.$input-radius - 2px
-    color: var(--tint-action)
+    color: var(--tint-action-primary)
     &:hover
       background-color: var(--tint-action-secondary-hover)
     &:active

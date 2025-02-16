@@ -23,7 +23,9 @@ const { year, humanEraYear, items, nextYear, prevYear } = Astro.props
   </Button>
   <h1>
     <span class="tint--type-body-serif">Human Era</span>
-    <time class="tint--type-body-serif-small" datetime={year}>{humanEraYear}</time>
+    <time class="tint--type-body-serif-small" datetime={year}
+      >{humanEraYear}</time
+    >
   </h1>
   <Button
     icon={true}
