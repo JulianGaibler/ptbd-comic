@@ -6,10 +6,14 @@
   import iconClose from 'tint/icons/20-close.svg?raw'
   import { onMount } from 'svelte'
 
-  export let comicId: string
+  interface Props {
+    comicId: string
+  }
 
-  let dialogElement: HTMLDialogElement
-  let copied = false
+  let { comicId }: Props = $props()
+
+  let dialogElement: HTMLDialogElement = $state()
+  let copied = $state(false)
 
   function openShareDialog() {
     if (navigator.share) {
@@ -27,8 +31,10 @@
     setTimeout(() => (copied = false), 2000)
   }
 
-  let shareLink = ''
-  let socialLinks: { name: string; link: string; download?: string }[] = []
+  let shareLink = $state('')
+  let socialLinks: { name: string; link: string; download?: string }[] = $state(
+    [],
+  )
 
   function selectText(event: Event) {
     ;(event.target as HTMLInputElement).select()
@@ -79,7 +85,7 @@
   <Button
     title="Share comic"
     icon={true}
-    on:click={openShareDialog}
+    onclick={openShareDialog}
     ariaLabel="Share comic">{@html iconShare}</Button
   >
 
@@ -95,7 +101,7 @@
       <Button
         icon={true}
         small={true}
-        on:click={() => dialogElement.close()}
+        onclick={() => dialogElement.close()}
         ariaLabel="Close dialog">{@html iconClose}</Button
       >
     </header>
@@ -107,10 +113,10 @@
           type="text"
           readonly
           value={shareLink}
-          on:focus={selectText}
-          on:click={selectText}
+          onfocus={selectText}
+          onclick={selectText}
         />
-        <button on:click={copyLink} title="Copy link">{@html iconCopy}</button>
+        <button onclick={copyLink} title="Copy link">{@html iconCopy}</button>
       </div>
     </div>
     <div class="share-links">
