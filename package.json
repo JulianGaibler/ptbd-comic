@@ -12,8 +12,8 @@
     "prettier": "prettier -c .prettierrc.cjs --write --check 'src/**/*.*'"
   },
   "dependencies": {
-    "@astrojs/svelte": "^7.0.4",
-    "astro": "^5.3.0",
+    "@astrojs/svelte": "^7.1.1",
+    "astro": "^5.13.9",
     "luxon": "^3.5.0",
     "lz-string": "^1.5.0",
     "svelte": "^5.20.1",
