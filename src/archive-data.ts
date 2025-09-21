@@ -3,7 +3,6 @@ import {
   type PostsArg,
   type ThumbnailsArg,
 } from './import-utils'
-import fs from 'node:fs'
 import path from 'path'
 
 export interface ArchiveItem {
@@ -65,10 +64,23 @@ export async function getAllArchives(
     {} as Record<string, ArchiveItem[]>,
   )
 
+  // Get sorted list of available years
+  const availableYears = Object.keys(comicsByYear)
+    .map((year) => parseInt(year))
+    .sort((a, b) => a - b)
+
   // map with index
   return Object.entries(comicsByYear).map(([year, comics]) => {
-    const nextYearStr = (parseInt(year) + 1).toString()
-    const prevYearStr = (parseInt(year) - 1).toString()
+    const currentYear = parseInt(year)
+    const currentIndex = availableYears.indexOf(currentYear)
+
+    // Find the next and previous years that actually have content
+    const nextYear =
+      currentIndex < availableYears.length - 1
+        ? availableYears[currentIndex + 1].toString()
+        : undefined
+    const prevYear =
+      currentIndex > 0 ? availableYears[currentIndex - 1].toString() : undefined
 
     return {
       params: {
@@ -78,8 +90,8 @@ export async function getAllArchives(
         humanEraYear: addSeparatorPoints(parseInt(`1${year}`)),
         year,
         items: comics.sort((a, b) => b.date.getTime() - a.date.getTime()),
-        nextYear: comicsByYear[nextYearStr] ? nextYearStr : undefined,
-        prevYear: comicsByYear[prevYearStr] ? prevYearStr : undefined,
+        nextYear,
+        prevYear,
       },
     }
   })
