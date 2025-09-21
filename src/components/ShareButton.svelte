@@ -1,6 +1,7 @@
 <script lang="ts">
   const isClient = typeof window !== 'undefined'
   import { Button } from 'tint/components/index'
+  import Modal from 'tint/components/Modal.svelte'
   import iconShare from 'tint/icons/20-link.svg?raw'
   import iconCopy from 'tint/icons/20-copy.svg?raw'
   import iconClose from 'tint/icons/20-close.svg?raw'
@@ -12,7 +13,7 @@
 
   let { comicId }: Props = $props()
 
-  let dialogElement: HTMLDialogElement = $state()
+  let modalOpen = $state(false)
   let copied = $state(false)
 
   function openShareDialog() {
@@ -22,7 +23,7 @@
       })
       return
     } else {
-      dialogElement.showModal()
+      modalOpen = true
     }
   }
   function copyLink() {
@@ -86,45 +87,43 @@
     title="Share comic"
     icon={true}
     onclick={openShareDialog}
-    ariaLabel="Share comic">{@html iconShare}</Button
+    aria-label="Share comic">{@html iconShare}</Button
   >
 
-  <dialog
-    class="tint--card"
-    bind:this={dialogElement}
-    aria-labelledby="share-dialog-heading"
-  >
-    <header class="tint--tinted">
-      <h1 id="share-dialog-heading" class="tint--type-title-serif-3">
-        Share this comic
-      </h1>
-      <Button
-        icon={true}
-        small={true}
-        onclick={() => dialogElement.close()}
-        ariaLabel="Close dialog">{@html iconClose}</Button
-      >
-    </header>
-    <div class="copy-link">
-      <div class="input" class:copied>
-        <input
-          autofocus
-          class="tint--type-body-serif"
-          type="text"
-          readonly
-          value={shareLink}
-          onfocus={selectText}
-          onclick={selectText}
-        />
-        <button onclick={copyLink} title="Copy link">{@html iconCopy}</button>
+  <Modal bind:open={modalOpen}>
+    <div class="share-content">
+      <header class="tint--tinted">
+        <h1 id="share-dialog-heading" class="tint--type-title-serif-3">
+          Share this comic
+        </h1>
+        <Button
+          icon={true}
+          small={true}
+          variant="ghost"
+          onclick={() => (modalOpen = false)}
+          aria-label="Close dialog">{@html iconClose}</Button
+        >
+      </header>
+      <div class="copy-link">
+        <div class="input" class:copied>
+          <input
+            class="tint--type-body-serif"
+            type="text"
+            readonly
+            value={shareLink}
+            onfocus={selectText}
+            onclick={selectText}
+          />
+          <button onclick={copyLink} title="Copy link">{@html iconCopy}</button>
+        </div>
+      </div>
+      <div class="share-links">
+        {#each socialLinks as { name, link, download }}
+          <Button href={link} {download} external={true}>{name}</Button>
+        {/each}
       </div>
     </div>
-    <div class="share-links">
-      {#each socialLinks as { name, link, download }}
-        <Button href={link} {download} external={true}>{name}</Button>
-      {/each}
-    </div>
-  </dialog>
+  </Modal>
 {:else}
   <Button
     title="Share comic"
@@ -135,11 +134,14 @@
 {/if}
 
 <style lang="sass">
-dialog
-  margin: auto
-  width: calc(100% - tint.$size-32)
-  max-width: 384px
+.share-content
+  display: flex
+  flex-direction: column
+  max-width: 400px
+  min-width: min(100vw - 128px, 400px)
   overflow: hidden
+  :global(button)
+    white-space: nowrap
 
 header, .share-links, .copy-link
   padding: tint.$size-16

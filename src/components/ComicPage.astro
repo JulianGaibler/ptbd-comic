@@ -16,14 +16,32 @@ const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
   <time datetime={date.toISOString()}>{comicDateFormatter.format(date)}</time>
 </div>
 
-<section class:list={['sections', parseInt(comicId) < 45 && 'legacy']}>
+<section class="sections">
   {
-    panelFiles.map((file, i) => (
-      <OptimizedImg
-        src={file}
-        alt={alt ? alt[i] : 'Sorry, older comics do not have alt-text.'}
-      />
-    ))
+    parseInt(comicId) <= 41 ? (
+      <>
+        <OptimizedImg
+          src={panelFiles[0]}
+          alt={alt ? alt[0] : 'Sorry, older comics do not have alt-text.'}
+        />
+        {panelFiles[1] && (
+          <details>
+            <summary>Hidden panel?</summary>
+            <OptimizedImg
+              src={panelFiles[1]}
+              alt={alt ? alt[1] : 'Sorry, older comics do not have alt-text.'}
+            />
+          </details>
+        )}
+      </>
+    ) : (
+      panelFiles.map((file, i) => (
+        <OptimizedImg
+          src={file}
+          alt={alt ? alt[i] : 'Sorry, older comics do not have alt-text.'}
+        />
+      ))
+    )
   }
 </section>
 
@@ -33,7 +51,7 @@ const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
   </div>
   <nav>
     <Button
-      ariaLabel="Previous comic"
+      aria-label="Previous comic"
       icon={true}
       disabled={prevComic === undefined}
       href={`/comic/${prevComic}`}
@@ -42,7 +60,7 @@ const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
     </Button>
     <ShareButton client:idle comicId={comicId} />
     <Button
-      ariaLabel="Next comic"
+      aria-label="Next comic"
       icon={true}
       disabled={nextComic === undefined}
       href={`/comic/${nextComic}`}
@@ -70,13 +88,24 @@ const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
     padding-inline: tint.$size-16
   .sections
     display: grid
-    grid-template-columns: auto auto
+    grid-template-columns: 1fr
     width: 100%
     grid-gap: tint.$size-8
-    &.legacy
-      grid-template-columns: 1fr
-    @media (max-width: 550px)
-      grid-template-columns: 1fr
+    details
+      summary
+        cursor: pointer
+        padding: tint.$size-8
+        background: var(--tint-bg)
+        border: 1px solid var(--tint--card-border)
+        border-radius: tint.$size-4
+        margin-bottom: tint.$size-8
+        user-select: none
+        &:hover
+          background: var(--tint--card-bg-hover)
+      &[open] summary
+        border-bottom-left-radius: 0
+        border-bottom-right-radius: 0
+        margin-bottom: 0
 
   .footer
     margin-block-start: 12px

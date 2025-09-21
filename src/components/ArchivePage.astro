@@ -17,7 +17,7 @@ const { year, humanEraYear, items, nextYear, prevYear } = Astro.props
     icon={true}
     disabled={prevYear === undefined}
     href={`/archive/${prevYear}`}
-    ariaLabel={`Previous year: ${prevYear}`}
+    aria-label={`Previous year: ${prevYear}`}
   >
     <Fragment set:html={iconArrowLeft} />
   </Button>
@@ -31,7 +31,7 @@ const { year, humanEraYear, items, nextYear, prevYear } = Astro.props
     icon={true}
     disabled={nextYear === undefined}
     href={`/archive/${nextYear}`}
-    ariaLabel={`Next year: ${nextYear}`}
+    aria-label={`Next year: ${nextYear}`}
   >
     <Fragment set:html={iconArrowRight} />
   </Button>
@@ -62,7 +62,7 @@ const { year, humanEraYear, items, nextYear, prevYear } = Astro.props
     icon={true}
     disabled={prevYear === undefined}
     href={`/archive/${prevYear}`}
-    ariaLabel={`Previous year: ${prevYear}`}
+    aria-label={`Previous year: ${prevYear}`}
   >
     <Fragment set:html={iconArrowLeft} />
   </Button>
@@ -71,7 +71,7 @@ const { year, humanEraYear, items, nextYear, prevYear } = Astro.props
     icon={true}
     disabled={nextYear === undefined}
     href={`/archive/${nextYear}`}
-    ariaLabel={`Next year: ${nextYear}`}
+    aria-label={`Next year: ${nextYear}`}
   >
     <Fragment set:html={iconArrowRight} />
   </Button>
