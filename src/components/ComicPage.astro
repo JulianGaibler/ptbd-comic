@@ -17,32 +17,26 @@ const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
 </div>
 
 <section class="sections">
-  {
-    parseInt(comicId) <= 41 ? (
-      <>
-        <OptimizedImg
-          src={panelFiles[0]}
-          alt={alt ? alt[0] : 'Sorry, older comics do not have alt-text.'}
-        />
-        {panelFiles[1] && (
-          <details>
-            <summary>Hidden panel?</summary>
-            <OptimizedImg
-              src={panelFiles[1]}
-              alt={alt ? alt[1] : 'Sorry, older comics do not have alt-text.'}
-            />
-          </details>
-        )}
-      </>
-    ) : (
-      panelFiles.map((file, i) => (
-        <OptimizedImg
-          src={file}
-          alt={alt ? alt[i] : 'Sorry, older comics do not have alt-text.'}
-        />
-      ))
-    )
-  }
+  <OptimizedImg
+    src={panelFiles[0]}
+    alt={alt ? alt[0] : 'Sorry, older comics do not have alt-text.'}
+  />
+  {parseInt(comicId) <= 41 && panelFiles[1] && (
+    <details>
+      <summary>Hidden panel?</summary>
+      <OptimizedImg
+        src={panelFiles[1]}
+        alt={alt ? alt[1] : 'Sorry, older comics do not have alt-text.'}
+      />
+    </details>
+  )}
+  {parseInt(comicId) > 41 && panelFiles.slice(1).map((file, i) => (
+    <OptimizedImg
+      src={file}
+      alt={alt ? alt[i + 1] : 'Sorry, older comics do not have alt-text.'}
+    />
+  ))}
+</section>
 </section>
 
 <div class="footer">
