@@ -16,6 +16,17 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+
+      - name: Restore Astro build cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            dist
+          key: astro-build-${{ hashFiles('src/**/*', 'public/**/*', 'astro.config.*', 'package*.json') }}
+          restore-keys: |
+            astro-build-${{ hashFiles('astro.config.*', 'package*.json') }}-
+            astro-build-
+            
       - name: Install, build, and upload your site
         uses: withastro/action@v3
 
