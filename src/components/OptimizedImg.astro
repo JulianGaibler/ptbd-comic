@@ -9,7 +9,7 @@ type Props = {
 
 const { src, alt, className } = Astro.props
 
-const optimizedAvif = await getImage({ src, format: 'avif' })
+const optimizedAvif = await getImage({ src, format: 'avif', quality: 90 })
 ---
 
 <picture class={className}>

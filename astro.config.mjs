@@ -39,7 +39,8 @@ export default defineConfig({
             src: 'comics/*/share.png',
             dest: 'share',
             rename: (_name, _ext, fullPath) => {
-              const num = fullPath.split('/')[1]
+              const splitPaths = fullPath.split('/')
+              const num = splitPaths[splitPaths.length - 2]
               return `${num}.png`
             }
           },

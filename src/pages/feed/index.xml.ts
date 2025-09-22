@@ -12,11 +12,11 @@ const xmlOptions = {
 
 export function GET() {
   const allPosts = import.meta.glob<MarkdownInstance<ComicMeta>>(
-    '../../../../comics/*/README.md',
+    '../../../comics/*/README.md',
     { eager: true },
   )
   const allPanels = import.meta.glob<{ default: ImageMetadata }>(
-    '../../../../comics/*/thumbnail.jpg',
+    '../../../comics/*/thumbnail.jpg',
     { eager: true },
   )
 
