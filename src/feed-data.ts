@@ -5,7 +5,6 @@ import {
   type PostsArg,
   type ThumbnailsArg,
 } from './import-utils'
-import fs from 'node:fs'
 import path from 'path'
 
 export interface Entry {
