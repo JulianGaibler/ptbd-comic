@@ -1,2 +1,2 @@
-export const DOMAIN = 'ptbd.jwels.berlin'
+export const DOMAIN = 'ptbd-comic.com'
 export const FULLDOMAIN = `https://${DOMAIN}`
