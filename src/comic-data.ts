@@ -1,14 +1,12 @@
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js'
 import {
   findThumbnail,
-  type ComicMeta,
   type PanelsArg,
   type PostsArg,
   type ThumbnailsArg,
   findPanels,
   generateExcerpt,
 } from './import-utils'
-import type { MarkdownInstance } from 'astro'
-import fs from 'node:fs'
 import path from 'path'
 
 export interface ComicProps {
@@ -18,7 +16,7 @@ export interface ComicProps {
   thumbnailFile: ImageMetadata
   description: string
   alt?: string[]
-  Content: any
+  Content: AstroComponentFactory
   comicId: string
   nextComic?: string
   prevComic?: string

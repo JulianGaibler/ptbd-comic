@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   semi: false,
   trailingComma: 'all',
   singleQuote: true,
@@ -10,3 +10,5 @@ module.exports = {
     'prettier-plugin-svelte',
   ],
 }
+
+export default config

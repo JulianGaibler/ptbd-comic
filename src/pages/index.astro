@@ -1,5 +1,5 @@
 ---
-import { getAllComics, type ComicProps } from '@src/comic-data'
+import { getAllComics } from '@src/comic-data'
 import ComicPage from '@src/components/ComicPage.astro'
 import type { ComicMeta } from '@src/import-utils'
 import Layout from '@src/layouts/Layout.astro'
@@ -20,7 +20,6 @@ const allThumbnails = import.meta.glob<{ default: ImageMetadata }>(
 
 const comics = await getAllComics(allPosts, allPanels, allThumbnails)
 
-type Props = ComicProps
 const props = comics[comics.length - 1].props
 ---
 

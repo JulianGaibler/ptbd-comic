@@ -1,5 +1,5 @@
 ---
-import { getAllArchives, type ArchiveProps } from '@src/archive-data'
+import { getAllArchives } from '@src/archive-data'
 import ArchivePage from '@src/components/ArchivePage.astro'
 import type { ComicMeta } from '@src/import-utils'
 import Layout from '@src/layouts/Layout.astro'
@@ -16,7 +16,6 @@ const allPanels = import.meta.glob<{ default: ImageMetadata }>(
 
 const archive = await getAllArchives(allPosts, allPanels)
 
-type Props = ArchiveProps
 const props = archive[archive.length - 1].props
 ---
 

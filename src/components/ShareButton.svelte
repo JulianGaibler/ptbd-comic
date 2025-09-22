@@ -118,7 +118,7 @@
         </div>
       </div>
       <div class="share-links">
-        {#each socialLinks as { name, link, download }}
+        {#each socialLinks as { name, link, download } (name)}
           <Button href={link} {download} external={true}>{name}</Button>
         {/each}
       </div>
