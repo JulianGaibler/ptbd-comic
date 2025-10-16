@@ -12,8 +12,8 @@
     "prettier": "prettier --write --check 'src/**/*.*'"
   },
   "dependencies": {
-    "@astrojs/svelte": "^7.1.1",
-    "astro": "^5.13.10",
+    "@astrojs/svelte": "^7.2.0",
+    "astro": "^5.14.5",
     "luxon": "^3.7.2",
     "lz-string": "^1.5.0",
     "svelte": "^5.39.4",
@@ -22,18 +22,18 @@
   "devDependencies": {
     "@types/luxon": "^3.7.1",
     "@types/node": "^24.5.2",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^1.3.1",
+    "eslint-plugin-svelte": "^3.12.4",
     "fast-xml-parser": "^5.2.5",
+    "globals": "^16.3.0",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-jsdoc": "^1.3.3",
     "prettier-plugin-svelte": "^3.4.0",
     "sass": "^1.93.1",
-    "globals": "^16.3.0",
-    "vite-plugin-static-copy": "^3.1.2",
-    "eslint": "^9.36.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-astro": "^1.3.1",
-    "eslint-plugin-svelte": "^3.12.4",
-    "typescript-eslint": "^8.44.1"
+    "typescript-eslint": "^8.44.1",
+    "vite-plugin-static-copy": "^3.1.2"
   }
 }
