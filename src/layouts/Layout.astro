@@ -1,7 +1,7 @@
 ---
 import Header from '@src/components/Header.astro'
 import Footer from '@src/components/Footer.astro'
-import fonts from 'tint/fonts'
+import { getFontPreloads } from 'tint/fonts'
 import type { ComicProps } from '@src/comic-data'
 import { FULLDOMAIN } from '@src/constants'
 
@@ -28,6 +28,14 @@ const metaPath =
 const aTitle = title || comicProps?.title || undefined
 
 const metaTitle = `${aTitle ? `${aTitle} | ` : ''}Pretends to be Drawing`
+
+// Preload fonts used in the design
+const fontPreloads = getFontPreloads([
+  'hkGroteskBold',
+  'hkGroteskMedium',
+  'merriweatherBold',
+  'merriweatherRegular',
+])
 ---
 
 <!doctype html>
@@ -35,17 +43,7 @@ const metaTitle = `${aTitle ? `${aTitle} | ` : ''}Pretends to be Drawing`
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {
-      fonts.map((item) => (
-        <link
-          rel="preload"
-          href={item}
-          as="font"
-          type="font/woff2"
-          crossorigin
-        />
-      ))
-    }
+    {fontPreloads.map((props) => <link {...props} />)}
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -88,7 +86,7 @@ const metaTitle = `${aTitle ? `${aTitle} | ` : ''}Pretends to be Drawing`
     {metaPath && <meta name="twitter:url" content={metaPath} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:label1" content="Created by" />
-    <meta name="twitter:data2" content="Julian Gaibler" />
+    <meta name="twitter:data2" content="Juliana Gaibler" />
     <meta name="twitter:creator" content="@JulianGaibler" />
     <meta name="twitter:label2" content="Filed under" />
     <meta property="article:tag" content="Webcomic" />
