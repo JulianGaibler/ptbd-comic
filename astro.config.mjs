@@ -7,7 +7,7 @@ import { FULLDOMAIN } from './src/constants'
 export default defineConfig({
   site: FULLDOMAIN,
   images: {
-    formats: ['avif', 'png'],
+    formats: process.env.PUBLIC_SKIP_IMAGE_OPTIMIZATION === 'true' ? ['png'] : ['avif', 'png'],
   },
   vite: {
     ssr: {
