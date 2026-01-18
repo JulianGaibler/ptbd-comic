@@ -14,7 +14,7 @@ const optimizedAvif = skipOptimization ? null : await getImage({ src, format: 'a
 ---
 
 <picture class={className}>
-  {optimizedAvif && <source srcset={optimizedAvif.src} type="image/avif" />}
+  {optimizedAvif && <Fragment><source srcset={optimizedAvif.src} type="image/avif" /></Fragment>}
   <img src={src.src} alt={alt} />
 </picture>
 
