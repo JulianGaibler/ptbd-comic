@@ -9,11 +9,12 @@ type Props = {
 
 const { src, alt, className } = Astro.props
 
-const optimizedAvif = await getImage({ src, format: 'avif', quality: 90 })
+const skipOptimization = import.meta.env.SKIP_IMAGE_OPTIMIZATION === 'true'
+const optimizedAvif = skipOptimization ? null : await getImage({ src, format: 'avif', quality: 90 })
 ---
 
 <picture class={className}>
-  <source srcset={optimizedAvif.src} type="image/avif" />
+  {optimizedAvif && <source srcset={optimizedAvif.src} type="image/avif" />}
   <img src={src.src} alt={alt} />
 </picture>
 

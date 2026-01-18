@@ -1,18 +1,25 @@
 ---
 import logo from '@src/assets/ptbd-logo.svg?raw'
+
+const currentPath = Astro.url.pathname
+const isCurrent = (href: string) => {
+  const normalized = currentPath.endsWith('/') ? currentPath.slice(0, -1) : currentPath
+  const hrefNormalized = href.endsWith('/') ? href.slice(0, -1) : href
+  return normalized === hrefNormalized ? 'page' : undefined
+}
 ---
 
 <header class="tint--tinted">
-  <a class="logo" href="/" aria-label="Pretends to be Drawing"
+  <a class="logo" href="/" aria-label="Pretends to be Drawing" aria-current={isCurrent('/')}
     ><Fragment set:html={logo} /></a
   >
   <nav>
     <ul class="tint--type-body-sans">
       <li class="tint--type-body-sans-bold">
-        <a href="/about" class="">About</a>
+        <a href="/about" class="" aria-current={isCurrent('/about')}>About</a>
       </li>
       <li class="tint--type-body-sans-bold">
-        <a href="/archive" class="">Archive</a>
+        <a href="/archive" class="" aria-current={isCurrent('/archive')}>Archive</a>
       </li>
       <li>
         <a
