@@ -9,6 +9,10 @@ import OptimizedImg from './OptimizedImg.astro'
 type Props = ComicProps
 const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
   Astro.props
+
+const comicNumber = parseInt(comicId)
+const isOldComic = comicNumber <= 41
+const additionalPanels = isOldComic && panelFiles[1] ? [panelFiles[1]] : panelFiles.slice(1)
 ---
 
 <div class="header">
@@ -21,7 +25,7 @@ const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
     src={panelFiles[0]}
     alt={alt ? alt[0] : 'Sorry, older comics do not have alt-text.'}
   />
-  {parseInt(comicId) <= 41 && panelFiles[1] ? (
+  {isOldComic && panelFiles[1] ? (
     <details>
       <summary>Hidden panel?</summary>
       <OptimizedImg
@@ -30,16 +34,14 @@ const { title, date, alt, panelFiles, Content, comicId, nextComic, prevComic } =
       />
     </details>
   ) : null}
-  {parseInt(comicId) > 41
-    ? panelFiles
-      .slice(1)
-      .map((file, i) => (
-        <OptimizedImg
-          src={file}
-          alt={alt ? alt[i + 1] : 'Sorry, older comics do not have alt-text.'}
-        />
-      ))
-    : null}
+  {!isOldComic ? (
+    additionalPanels.map((file, i) => (
+      <OptimizedImg
+        src={file}
+        alt={alt ? alt[i + 1] : 'Sorry, older comics do not have alt-text.'}
+      />
+    ))
+  ) : null}
 </section>
 
 <div class="footer">
