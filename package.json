@@ -13,27 +13,27 @@
   },
   "dependencies": {
     "@astrojs/svelte": "^7.2.5",
-    "astro": "^5.17.3",
+    "astro": "^5.18.0",
     "luxon": "^3.7.2",
     "lz-string": "^1.5.0",
-    "svelte": "^5.53.0",
+    "svelte": "^5.53.5",
     "tint": "git://github.com/JulianGaibler/tint.git#main"
   },
   "devDependencies": {
     "@types/luxon": "^3.7.1",
-    "@types/node": "^25.3.0",
-    "eslint": "^10.0.0",
+    "@types/node": "^25.3.2",
+    "eslint": "^10.0.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^1.6.0",
     "eslint-plugin-svelte": "^3.15.0",
-    "fast-xml-parser": "^5.3.7",
+    "fast-xml-parser": "^5.4.1",
     "globals": "^17.3.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-jsdoc": "^1.8.0",
     "prettier-plugin-svelte": "^3.5.0",
     "sass": "^1.97.3",
-    "typescript-eslint": "^8.56.0",
+    "typescript-eslint": "^8.56.1",
     "vite-plugin-static-copy": "^3.2.0"
   }
 }
