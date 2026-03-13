@@ -12,7 +12,7 @@
     "prettier": "prettier --write --check 'src/**/*.*'"
   },
   "dependencies": {
-    "@astrojs/svelte": "^7.2.5",
+    "@astrojs/svelte": "^8.0.0",
     "astro": "^5.18.0",
     "luxon": "^3.7.2",
     "lz-string": "^1.5.0",
