@@ -12,28 +12,28 @@
     "prettier": "prettier --write --check 'src/**/*.*'"
   },
   "dependencies": {
-    "@astrojs/svelte": "^8.0.3",
-    "astro": "^6.0.7",
+    "@astrojs/svelte": "^8.0.4",
+    "astro": "^6.1.1",
     "luxon": "^3.7.2",
     "lz-string": "^1.5.0",
-    "svelte": "^5.54.0",
+    "svelte": "^5.55.0",
     "tint": "git://github.com/JulianGaibler/tint.git#main"
   },
   "devDependencies": {
     "@types/luxon": "^3.7.1",
     "@types/node": "^25.5.0",
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^1.6.0",
-    "eslint-plugin-svelte": "^3.15.2",
-    "fast-xml-parser": "^5.5.7",
+    "eslint-plugin-svelte": "^3.16.0",
+    "fast-xml-parser": "^5.5.9",
     "globals": "^17.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-jsdoc": "^1.8.0",
     "prettier-plugin-svelte": "^3.5.1",
     "sass": "^1.98.0",
-    "typescript-eslint": "^8.57.1",
+    "typescript-eslint": "^8.57.2",
     "vite-plugin-static-copy": "^3.3.0"
   }
 }
