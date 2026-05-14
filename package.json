@@ -16,7 +16,7 @@
     "astro": "^6.3.1",
     "luxon": "^3.7.2",
     "lz-string": "^1.5.0",
-    "svelte": "^5.55.5",
+    "svelte": "^5.55.7",
     "tint": "git://github.com/JulianGaibler/tint.git#main"
   },
   "devDependencies": {
